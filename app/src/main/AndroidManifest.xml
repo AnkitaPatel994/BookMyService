@@ -12,10 +12,35 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activity.AdminLoginActivity"></activity>
+        <activity
+            android:name=".activity.ManageBookingActivity"
+            android:label="@string/title_activity_manage_booking"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.ContactUsActivity"
+            android:label="@string/title_activity_contact_us"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.FAQActivity"
+            android:label="@string/title_activity_faq"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.BookMyServiceActivity"
+            android:label="@string/title_activity_book_my_service"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.OurServiceActivity"
+            android:label="@string/title_activity_our_service"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.AboutUsActivity"
+            android:label="@string/title_activity_about_us"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.BookServiceActivity"
             android:label="@string/title_activity_book_service"
-            android:theme="@style/AppTheme.ActionBar"></activity>
+            android:theme="@style/AppTheme.ActionBar" />
         <activity
             android:name=".activity.HomeActivity"
             android:label="@string/title_activity_home"

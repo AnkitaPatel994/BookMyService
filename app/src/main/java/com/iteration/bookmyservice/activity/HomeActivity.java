@@ -1,6 +1,8 @@
 package com.iteration.bookmyservice.activity;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -39,7 +41,7 @@ public class HomeActivity extends AppCompatActivity
     SliderLayout slBannerSlider;
     ArrayList<Slider> sliderListArray = new ArrayList<>();
     ArrayList<String> sliderImgArray = new ArrayList<>();
-    LinearLayout llBookService;
+    LinearLayout llAboutUs,llOurService,llBookMyService,llFAQ,llContactus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,11 +112,47 @@ public class HomeActivity extends AppCompatActivity
             }
         });
 
-        llBookService = (LinearLayout)findViewById(R.id.llBookService);
-        llBookService.setOnClickListener(new View.OnClickListener() {
+        llAboutUs = (LinearLayout)findViewById(R.id.llAboutUs);
+        llAboutUs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(HomeActivity.this,BookServiceActivity.class);
+                Intent i = new Intent(HomeActivity.this,AboutUsActivity.class);
+                startActivity(i);
+            }
+        });
+
+        llOurService = (LinearLayout)findViewById(R.id.llOurService);
+        llOurService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(HomeActivity.this,OurServiceActivity.class);
+                startActivity(i);
+            }
+        });
+
+        llBookMyService = (LinearLayout)findViewById(R.id.llBookMyService);
+        llBookMyService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(HomeActivity.this,BookMyServiceActivity.class);
+                startActivity(i);
+            }
+        });
+
+        llFAQ = (LinearLayout)findViewById(R.id.llFAQ);
+        llFAQ.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(HomeActivity.this,FAQActivity.class);
+                startActivity(i);
+            }
+        });
+
+        llContactus = (LinearLayout)findViewById(R.id.llContactus);
+        llContactus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(HomeActivity.this,ContactUsActivity.class);
                 startActivity(i);
             }
         });
@@ -137,22 +175,79 @@ public class HomeActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        if (id == R.id.nav_aboutus)
+        {
+            Intent i = new Intent(getApplicationContext(),AboutUsActivity.class);
+            startActivity(i);
+        }
+        else if (id == R.id.nav_ourservice)
+        {
+            Intent i = new Intent(getApplicationContext(),OurServiceActivity.class);
+            startActivity(i);
+        }
+        else if (id == R.id.nav_bookmyservice)
+        {
+            Intent i = new Intent(getApplicationContext(),BookMyServiceActivity.class);
+            startActivity(i);
+        }
+        else if (id == R.id.nav_managebooking)
+        {
+            Intent i = new Intent(getApplicationContext(),ManageBookingActivity.class);
+            startActivity(i);
+        }
+        else if (id == R.id.nav_contactus)
+        {
+            Intent i = new Intent(getApplicationContext(),ContactUsActivity.class);
+            startActivity(i);
+        }
+        else if (id == R.id.nav_faq)
+        {
+            Intent i = new Intent(getApplicationContext(),FAQActivity.class);
+            startActivity(i);
+        }
+        else if (id == R.id.nav_admin)
+        {
+            Intent i = new Intent(getApplicationContext(),AdminLoginActivity.class);
+            startActivity(i);
+        }
+        else if (id == R.id.nav_rate)
+        {
+            Intent i=new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse("https://play.google.com/store/apps/details?id=com.iteration.bookmyservice"));
+            if(!MyStartActivity(i))
+            {
+                i.setData(Uri.parse("https://play.google.com/store/apps/details?id=com.iteration.bookmyservice"));
+                if(!MyStartActivity(i))
+                {
+                    Log.d("Like","Could not open browser");
+                }
+            }
+        }
+        else if (id == R.id.nav_share)
+        {
+            Intent i=new Intent(Intent.ACTION_SEND);
+            i.setType("text/plain");
+            String body="https://play.google.com/store/apps/details?id=com.iteration.bookmyservice";
+            i.putExtra(Intent.EXTRA_SUBJECT,body);
+            i.putExtra(Intent.EXTRA_TEXT,body);
+            startActivity(Intent.createChooser(i,"Share using"));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    private boolean MyStartActivity(Intent i) {
+        try
+        {
+            startActivity(i);
+            return true;
+        }
+        catch (ActivityNotFoundException e)
+        {
+            return false;
+        }
+    }
+
 }

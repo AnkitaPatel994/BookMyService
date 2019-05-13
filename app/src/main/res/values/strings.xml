@@ -8,4 +8,10 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_book_service">BookServiceActivity</string>
+    <string name="title_activity_about_us">AboutUsActivity</string>
+    <string name="title_activity_our_service">OurServiceActivity</string>
+    <string name="title_activity_book_my_service">BookMyServiceActivity</string>
+    <string name="title_activity_faq">FAQActivity</string>
+    <string name="title_activity_contact_us">ContactUsActivity</string>
+    <string name="title_activity_manage_booking">ManageBookingActivity</string>
 </resources>
