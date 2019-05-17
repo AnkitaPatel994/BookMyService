@@ -10,4 +10,11 @@
     android:orientation="vertical"
     tools:showIn="@layout/app_bar_about_us">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:padding="10dp"
+        android:text="@string/aboutus" />
+
 </LinearLayout>

@@ -1,6 +1,7 @@
 package com.iteration.bookmyservice.network;
 
 import com.iteration.bookmyservice.model.Message;
+import com.iteration.bookmyservice.model.MessageOTP;
 import com.iteration.bookmyservice.model.ServiceList;
 import com.iteration.bookmyservice.model.Slider;
 import com.iteration.bookmyservice.model.SliderList;
@@ -22,6 +23,10 @@ public interface GetProductDataService {
 
     @GET("webservice/timeslot.php")
     Call<TimeslotList> getTimeslotData();
+
+    @FormUrlEncoded
+    @POST("webservice/emailsendotp.php")
+    Call<MessageOTP> getEmailSendOtpData(@Field("email") String booking_email);
 
     @FormUrlEncoded
     @POST("webservice/addbooking.php")

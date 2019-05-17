@@ -4,23 +4,36 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.iteration.bookmyservice.R;
+import com.iteration.bookmyservice.adapter.ServiceListAdapter;
+import com.iteration.bookmyservice.model.Service;
+import com.iteration.bookmyservice.model.ServiceList;
+import com.iteration.bookmyservice.network.GetProductDataService;
+import com.iteration.bookmyservice.network.RetrofitInstance;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class OurServiceActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    RecyclerView rvOurService;
+    ArrayList<Service> ServiceListArray = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +50,40 @@ public class OurServiceActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        GetProductDataService productDataService = RetrofitInstance.getRetrofitInstance().create(GetProductDataService.class);
+
+        rvOurService = (RecyclerView)findViewById(R.id.rvOurService);
+        rvOurService.setHasFixedSize(true);
+
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.VERTICAL,false);
+        rvOurService.setLayoutManager(manager);
+
+        Call<ServiceList> ServiceListCall = productDataService.getServiceData();
+
+        ServiceListCall.enqueue(new Callback<ServiceList>() {
+            @Override
+            public void onResponse(Call<ServiceList> call, Response<ServiceList> response) {
+                String status = response.body().getStatus();
+                String message = response.body().getMessage();
+                if (status.equals("1"))
+                {
+                    ServiceListArray = response.body().getServiceList();
+                    ServiceListAdapter serviceListAdapter = new ServiceListAdapter(OurServiceActivity.this, ServiceListArray);
+                    rvOurService.setAdapter(serviceListAdapter);
+                }
+                else
+                {
+                    Toast.makeText(OurServiceActivity.this, message, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ServiceList> call, Throwable t) {
+                Toast.makeText(OurServiceActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     @Override
