@@ -1,6 +1,7 @@
 package com.iteration.bookmyservice.network;
 
 import com.iteration.bookmyservice.model.Message;
+import com.iteration.bookmyservice.model.MessageLogin;
 import com.iteration.bookmyservice.model.MessageOTP;
 import com.iteration.bookmyservice.model.ServiceList;
 import com.iteration.bookmyservice.model.Slider;
@@ -40,5 +41,10 @@ public interface GetProductDataService {
                                     @Field("booking_comment") String booking_comment,
                                     @Field("booking_t_id") String booking_t_id,
                                     @Field("booking_status") String booking_status);
+
+    @FormUrlEncoded
+    @POST("webservice/login.php")
+    Call<MessageLogin> getLoginData(@Field("email") String email,
+                                    @Field("password") String password);
 
 }

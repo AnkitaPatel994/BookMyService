@@ -40,6 +40,7 @@ import com.iteration.bookmyservice.model.Timeslot;
 import com.iteration.bookmyservice.model.TimeslotList;
 import com.iteration.bookmyservice.network.GetProductDataService;
 import com.iteration.bookmyservice.network.RetrofitInstance;
+import com.iteration.bookmyservice.network.SessionManager;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -71,6 +72,7 @@ public class BookMyServiceActivity extends AppCompatActivity
     int mMonth = c.get(Calendar.MONTH);
     int mDay = c.get(Calendar.DAY_OF_MONTH);
     String OTP,ServiceId,TimeSlotId;
+    SessionManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +86,8 @@ public class BookMyServiceActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        session = new SessionManager(BookMyServiceActivity.this);
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -159,6 +163,11 @@ public class BookMyServiceActivity extends AppCompatActivity
                     btnEmailSend.setVisibility(View.GONE);
                     llBox.setVisibility(View.VISIBLE);
                     txtEmail.setEnabled(false);
+
+                    String UserEmail = txtEmail.getText().toString();
+
+                    session.createLoginSession(UserEmail);
+
                 }
                 else
                 {
@@ -205,6 +214,7 @@ public class BookMyServiceActivity extends AppCompatActivity
 
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, ServiceNameArray);
                     spService.setAdapter(adapter);
+
                 }
                 else
                 {

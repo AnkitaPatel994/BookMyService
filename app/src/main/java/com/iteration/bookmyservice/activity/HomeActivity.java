@@ -6,6 +6,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -24,12 +27,17 @@ import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.iteration.bookmyservice.R;
+import com.iteration.bookmyservice.adapter.SliderListAdapter;
 import com.iteration.bookmyservice.model.Slider;
 import com.iteration.bookmyservice.model.SliderList;
 import com.iteration.bookmyservice.network.GetProductDataService;
+import com.iteration.bookmyservice.network.Pager;
 import com.iteration.bookmyservice.network.RetrofitInstance;
 
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,8 +48,11 @@ public class HomeActivity extends AppCompatActivity
 
     SliderLayout slBannerSlider;
     ArrayList<Slider> sliderListArray = new ArrayList<>();
-    ArrayList<String> sliderImgArray = new ArrayList<>();
+    public static ArrayList<String> sliderImgArray = new ArrayList<>();
     LinearLayout llAboutUs,llOurService,llBookMyService,llFAQ,llContactus;
+    RecyclerView rvBannerSlider;
+    ViewPager vpBannerSlider;
+    int currentIndex=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +72,14 @@ public class HomeActivity extends AppCompatActivity
 
         GetProductDataService productDataService = RetrofitInstance.getRetrofitInstance().create(GetProductDataService.class);
 
+        rvBannerSlider = (RecyclerView) findViewById(R.id.rvBannerSlider);
+        rvBannerSlider.setHasFixedSize(true);
+
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL,false);
+        rvBannerSlider.setLayoutManager(manager);
+
+        vpBannerSlider = (ViewPager)findViewById(R.id.vpBannerSlider);
+
         slBannerSlider = (SliderLayout)findViewById(R.id.slBannerSlider);
 
         Call<SliderList> sliderListCall = productDataService.getSliderData();
@@ -73,13 +92,25 @@ public class HomeActivity extends AppCompatActivity
                 if(status.equals("1"))
                 {
                     sliderListArray = response.body().getSliderList();
+                    SliderListAdapter sliderListAdapter = new SliderListAdapter(HomeActivity.this, sliderListArray);
+                    rvBannerSlider.setAdapter(sliderListAdapter);
+
                     for (int i=0;i<sliderListArray.size();i++)
                     {
                         String banner = sliderListArray.get(i).getBanner();
                         String banner_path = RetrofitInstance.BASE_URL +banner;
                         Log.d("banner_path",banner_path);
-                        sliderImgArray.add(banner_path);
+                        sliderImgArray.add(banner);
                     }
+
+                    Pager adapter = new Pager(getSupportFragmentManager());
+                    for (int i = 0; i < sliderImgArray.size(); i++) {
+                        adapter.addFrag(new ImgSliderFragment(), sliderImgArray.get(i).trim());
+                    }
+                    vpBannerSlider.setAdapter(adapter);
+
+                    Timer timer = new Timer();
+                    timer.scheduleAtFixedRate(new MyTimerTask(), 2000, 4000);
 
                     for (String name : sliderImgArray) {
                         DefaultSliderView textSliderView = new DefaultSliderView(HomeActivity.this);
@@ -247,6 +278,22 @@ public class HomeActivity extends AppCompatActivity
         catch (ActivityNotFoundException e)
         {
             return false;
+        }
+    }
+
+    public class MyTimerTask extends TimerTask{
+
+        @Override
+        public void run() {
+
+            if (vpBannerSlider.getCurrentItem() == 0){
+                vpBannerSlider.setCurrentItem(1);
+            } else if (vpBannerSlider.getCurrentItem() == 1){
+                vpBannerSlider.setCurrentItem(2);
+            } else {
+                vpBannerSlider.setCurrentItem(0);
+            }
+
         }
     }
 

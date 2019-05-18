@@ -6,42 +6,42 @@
     <group>
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_home"
             android:title="Home" />
         <item
             android:id="@+id/nav_aboutus"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_about"
             android:title="About Us" />
         <item
             android:id="@+id/nav_ourservice"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/services"
             android:title="Our Service" />
         <item
             android:id="@+id/nav_bookmyservice"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Book My Service" />
+            android:icon="@drawable/booking"
+            android:title="Service Booking" />
         <item
             android:id="@+id/nav_managebooking"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_manage"
             android:title="Manage Booking" />
         <item
             android:id="@+id/nav_contactus"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/contactus"
             android:title="Contact Us" />
         <item
             android:id="@+id/nav_faq"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/faq"
             android:title="FAQ" />
         <item
             android:id="@+id/nav_admin"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_account"
             android:title="Admin Login" />
     </group>
 
     <group android:id="@+id/ABC">
         <item
             android:id="@+id/nav_rate"
-            android:icon="@drawable/ic_menu_send"
+            android:icon="@drawable/ic_rate"
             android:title="Rate App" />
         <item
             android:id="@+id/nav_share"

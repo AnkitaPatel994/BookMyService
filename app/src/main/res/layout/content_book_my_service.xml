@@ -77,17 +77,25 @@
                 android:id="@+id/btnEmailSend"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:backgroundTint="@color/colorPrimary"
+                android:textColor="@color/colorWhite"
+                android:layout_marginTop="50dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:background="@drawable/button_background"
                 android:text="Verification" />
 
             <Button
                 android:id="@+id/btnEmailVeri"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:backgroundTint="@color/colorPrimary"
                 android:visibility="gone"
+                android:layout_marginTop="50dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:background="@drawable/button_background"
+                android:textColor="@color/colorWhite"
                 android:text="Submit" />
 
             <LinearLayout
@@ -285,6 +293,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:backgroundTint="@color/colorPrimary"
+                    android:textColor="@color/colorWhite"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="50dp"
+                    android:background="@drawable/button_background"
                     android:text="Submit" />
 
             </LinearLayout>
