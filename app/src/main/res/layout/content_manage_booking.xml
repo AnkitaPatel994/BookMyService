@@ -10,4 +10,10 @@
     android:orientation="vertical"
     tools:showIn="@layout/app_bar_manage_booking">
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvManageBooking"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp"/>
+
 </LinearLayout>

@@ -6,6 +6,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -16,11 +18,31 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.iteration.bookmyservice.R;
+import com.iteration.bookmyservice.adapter.ManageBookingListAdapter;
+import com.iteration.bookmyservice.adapter.ServiceListAdapter;
+import com.iteration.bookmyservice.model.Booking;
+import com.iteration.bookmyservice.model.BookingList;
+import com.iteration.bookmyservice.model.ServiceList;
+import com.iteration.bookmyservice.network.GetProductDataService;
+import com.iteration.bookmyservice.network.RetrofitInstance;
+import com.iteration.bookmyservice.network.SessionManager;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ManageBookingActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    SessionManager session;
+    RecyclerView rvManageBooking;
+    ArrayList<Booking> BookingListArray = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +59,44 @@ public class ManageBookingActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        session = new SessionManager(ManageBookingActivity.this);
+
+        HashMap<String,String> user = session.getUserDetails();
+        String user_email = user.get(SessionManager.user_email);
+
+        GetProductDataService productDataService = RetrofitInstance.getRetrofitInstance().create(GetProductDataService.class);
+
+        rvManageBooking = (RecyclerView)findViewById(R.id.rvManageBooking);
+        rvManageBooking.setHasFixedSize(true);
+
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.VERTICAL,false);
+        rvManageBooking.setLayoutManager(manager);
+
+        Call<BookingList> BookingListCall = productDataService.getManageBookingData(user_email);
+        BookingListCall.enqueue(new Callback<BookingList>() {
+            @Override
+            public void onResponse(Call<BookingList> call, Response<BookingList> response) {
+                String status = response.body().getStatus();
+                String message = response.body().getMessage();
+                if (status.equals("1"))
+                {
+                    BookingListArray = response.body().getBookingList();
+                    ManageBookingListAdapter manageBookingListAdapter = new ManageBookingListAdapter(ManageBookingActivity.this, BookingListArray);
+                    rvManageBooking.setAdapter(manageBookingListAdapter);
+                }
+                else
+                {
+                    Toast.makeText(ManageBookingActivity.this, message, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BookingList> call, Throwable t) {
+                Toast.makeText(ManageBookingActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     @Override
