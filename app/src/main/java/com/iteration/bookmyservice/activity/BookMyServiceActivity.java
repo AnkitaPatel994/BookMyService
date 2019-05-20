@@ -133,7 +133,7 @@ public class BookMyServiceActivity extends AppCompatActivity
                         if (status.equals("1"))
                         {
                             OTP = response.body().getOtp();
-                            txtOTP.setText(OTP);
+                            /*txtOTP.setText(OTP);*/
                             llOTPBox.setVisibility(View.VISIBLE);
                             btnEmailVeri.setVisibility(View.VISIBLE);
                             btnEmailSend.setVisibility(View.GONE);
@@ -145,7 +145,7 @@ public class BookMyServiceActivity extends AppCompatActivity
                     }
 
                     @Override
-                    public void onFailure(Call<MessageOTP> call, Throwable t) {
+                    public void onFailure(Call<MessageOTP>  call, Throwable t) {
                         Toast.makeText(BookMyServiceActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -328,53 +328,53 @@ public class BookMyServiceActivity extends AppCompatActivity
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String booking_name = txtName.getText().toString();
-                String booking_email = txtEmail.getText().toString();
-                String booking_phone = txtMobile.getText().toString();
-                String booking_address = txtAddress.getText().toString();
-                String booking_service_id = ServiceId;
-                String booking_date = txtDate.getText().toString();
-                String booking_vinno = txtVINNumber.getText().toString();
-                String booking_comment = txtComment.getText().toString();
-                String booking_t_id = TimeSlotId;
-                String booking_status = "Pending";
 
-                final ProgressDialog dialog = new ProgressDialog(BookMyServiceActivity.this);
-                dialog.setMessage("Loading...");
-                dialog.setCancelable(true);
-                dialog.show();
+                if (cbCondition.isChecked())
+                {
+                    String booking_name = txtName.getText().toString();
+                    String booking_email = txtEmail.getText().toString();
+                    String booking_phone = txtMobile.getText().toString();
+                    String booking_address = txtAddress.getText().toString();
+                    String booking_service_id = ServiceId;
+                    String booking_date = txtDate.getText().toString();
+                    String booking_vinno = txtVINNumber.getText().toString();
+                    String booking_comment = txtComment.getText().toString();
+                    String booking_t_id = TimeSlotId;
+                    String booking_status = "Pending";
 
-                Call<Message> AddBookingCall = productDataService.getAddBookingData(booking_name,booking_email,booking_phone,booking_address,booking_service_id,booking_date,booking_vinno,booking_comment,booking_t_id,booking_status);
-                AddBookingCall.enqueue(new Callback<Message>() {
-                    @Override
-                    public void onResponse(Call<Message> call, Response<Message> response) {
-                        dialog.dismiss();
-                        String status = response.body().getStatus();
-                        String message = response.body().getMessage();
-                        if (status.equals("1"))
-                        {
-                            if (cbCondition.isChecked())
+                    final ProgressDialog dialog = new ProgressDialog(BookMyServiceActivity.this);
+                    dialog.setMessage("Loading...");
+                    dialog.setCancelable(true);
+                    dialog.show();
+
+                    Call<Message> AddBookingCall = productDataService.getAddBookingData(booking_name,booking_email,booking_phone,booking_address,booking_service_id,booking_date,booking_vinno,booking_comment,booking_t_id,booking_status);
+                    AddBookingCall.enqueue(new Callback<Message>() {
+                        @Override
+                        public void onResponse(Call<Message> call, Response<Message> response) {
+                            dialog.dismiss();
+                            String status = response.body().getStatus();
+                            String message = response.body().getMessage();
+                            if (status.equals("1"))
                             {
                                 Intent i = new Intent(BookMyServiceActivity.this,HomeActivity.class);
                                 startActivity(i);
                             }
                             else
                             {
-                                Toast.makeText(BookMyServiceActivity.this, "CheckBox not checked", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(BookMyServiceActivity.this, message, Toast.LENGTH_SHORT).show();
                             }
-
                         }
-                        else
-                        {
-                            Toast.makeText(BookMyServiceActivity.this, message, Toast.LENGTH_SHORT).show();
-                        }
-                    }
 
-                    @Override
-                    public void onFailure(Call<Message> call, Throwable t) {
-                        Toast.makeText(BookMyServiceActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                        @Override
+                        public void onFailure(Call<Message> call, Throwable t) {
+                            Toast.makeText(BookMyServiceActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+                else
+                {
+                    Toast.makeText(BookMyServiceActivity.this, "Please Accept terms and conditions...", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });

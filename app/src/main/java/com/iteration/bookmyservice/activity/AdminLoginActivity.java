@@ -10,7 +10,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.iteration.bookmyservice.R;
-import com.iteration.bookmyservice.adapter.ServiceListAdapter;
 import com.iteration.bookmyservice.model.MessageLogin;
 import com.iteration.bookmyservice.network.GetProductDataService;
 import com.iteration.bookmyservice.network.RetrofitInstance;
@@ -54,7 +53,7 @@ public class AdminLoginActivity extends AppCompatActivity {
                         {
                             String Email = response.body().getEmail();
                             Toast.makeText(AdminLoginActivity.this, message, Toast.LENGTH_SHORT).show();
-                            Intent i = new Intent(AdminLoginActivity.this,AdminBookingActivity.class);
+                            Intent i = new Intent(AdminLoginActivity.this, AdminBookingActivity.class);
                             startActivity(i);
                         }
                         else

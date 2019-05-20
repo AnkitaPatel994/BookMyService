@@ -4,6 +4,8 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
@@ -20,6 +22,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
@@ -53,6 +56,19 @@ public class HomeActivity extends AppCompatActivity
     RecyclerView rvBannerSlider;
     ViewPager vpBannerSlider;
     int currentIndex=0;
+    long SLIDER_TIMER = 2000;
+    boolean isCountDownTime = false;
+    Handler handler;
+
+    private final Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            if(!isCountDownTime){
+                automateSlider();
+            }
+            handler.postDelayed(runnable,1000);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +98,12 @@ public class HomeActivity extends AppCompatActivity
 
         slBannerSlider = (SliderLayout)findViewById(R.id.slBannerSlider);
 
+        handler = new Handler();
+        handler.postDelayed(runnable,1000);
+        runnable.run();
+
+
+
         Call<SliderList> sliderListCall = productDataService.getSliderData();
 
         sliderListCall.enqueue(new Callback<SliderList>() {
@@ -109,8 +131,6 @@ public class HomeActivity extends AppCompatActivity
                     }
                     vpBannerSlider.setAdapter(adapter);
 
-                    Timer timer = new Timer();
-                    timer.scheduleAtFixedRate(new MyTimerTask(), 2000, 4000);
 
                     for (String name : sliderImgArray) {
                         DefaultSliderView textSliderView = new DefaultSliderView(HomeActivity.this);
@@ -140,6 +160,26 @@ public class HomeActivity extends AppCompatActivity
             @Override
             public void onFailure(Call<SliderList> call, Throwable t) {
                 Toast.makeText(HomeActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        vpBannerSlider.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+
+                for (i=0;i<=sliderImgArray.size();i++){
+                    currentIndex=i;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
             }
         });
 
@@ -281,20 +321,33 @@ public class HomeActivity extends AppCompatActivity
         }
     }
 
-    public class MyTimerTask extends TimerTask{
+    private void automateSlider() {
+        isCountDownTime = true;
+        new CountDownTimer(SLIDER_TIMER,1000){
 
-        @Override
-        public void run() {
+            @Override
+            public void onTick(long millisUntilFinished) {
 
-            if (vpBannerSlider.getCurrentItem() == 0){
-                vpBannerSlider.setCurrentItem(1);
-            } else if (vpBannerSlider.getCurrentItem() == 1){
-                vpBannerSlider.setCurrentItem(2);
-            } else {
-                vpBannerSlider.setCurrentItem(0);
             }
 
-        }
+            @Override
+            public void onFinish() {
+                int nextSlider = currentIndex+1;
+
+                if (nextSlider == sliderImgArray.size())
+                {
+                    nextSlider = 0;
+                }
+                vpBannerSlider.setCurrentItem(nextSlider);
+                isCountDownTime = false;
+            }
+        }.start();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        handler.removeCallbacks(runnable);
     }
 
 }
