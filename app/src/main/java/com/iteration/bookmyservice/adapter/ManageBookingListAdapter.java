@@ -50,9 +50,10 @@ public class ManageBookingListAdapter extends RecyclerView.Adapter<ManageBooking
         String t_timeslot = bookingListArray.get(position).getT_timeslot();
 
         viewHolder.txtMBName.setText(booking_name);
-        viewHolder.txtMBEmail.setText(booking_email);
+        viewHolder.txtMBDate.setText(booking_date);
         viewHolder.txtMBServiceName.setText(Service_name);
         viewHolder.txtMBTimeslot.setText(t_timeslot);
+        viewHolder.txtMBAddress.setText(booking_address);
 
 
     }
@@ -64,15 +65,16 @@ public class ManageBookingListAdapter extends RecyclerView.Adapter<ManageBooking
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView txtMBName,txtMBEmail,txtMBServiceName,txtMBTimeslot;
+        TextView txtMBName,txtMBDate,txtMBServiceName,txtMBTimeslot,txtMBAddress;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             txtMBName = (TextView)itemView.findViewById(R.id.txtMBName);
-            txtMBEmail = (TextView)itemView.findViewById(R.id.txtMBEmail);
+            txtMBDate = (TextView)itemView.findViewById(R.id.txtMBDate);
             txtMBServiceName = (TextView)itemView.findViewById(R.id.txtMBServiceName);
             txtMBTimeslot = (TextView)itemView.findViewById(R.id.txtMBTimeslot);
+            txtMBAddress = (TextView)itemView.findViewById(R.id.txtMBAddress);
         }
     }
 }
