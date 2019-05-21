@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:layout_marginBottom="10dp"
+    android:id="@+id/llBookingList"
+    android:background="@drawable/ll_layout_box"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/llBookingName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Name :"
+            android:textStyle="bold|normal"
+            android:textSize="18dp"/>
+
+    <TextView
+        android:id="@+id/txtBookingName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Booking Name"
+        android:paddingLeft="10dp"
+        android:textStyle="bold|normal"
+        android:textSize="18dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llBookingEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Email :"
+            android:textStyle="bold|normal"
+            android:textSize="18dp"/>
+
+    <TextView
+        android:id="@+id/txtBookingEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Booking Email"
+        android:textStyle="bold|normal"
+        android:paddingLeft="10dp"
+        android:textSize="18dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llBookingPhoneNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone Number :"
+            android:textStyle="bold|normal"
+            android:textSize="18dp"/>
+
+        <TextView
+            android:id="@+id/txtBookingPhoneNo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Booking Phone Number"
+            android:paddingLeft="10dp"
+            android:textStyle="bold|normal"
+            android:textSize="18dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llBookingAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Address :"
+            android:textStyle="bold|normal"
+            android:textSize="18dp"/>
+
+        <TextView
+            android:id="@+id/txtBookingAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Booking Address"
+            android:textStyle="bold|normal"
+            android:paddingLeft="10dp"
+            android:textSize="18dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llServiceName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Service Name :"
+            android:textStyle="bold|normal"
+            android:textSize="18dp"/>
+
+        <TextView
+            android:id="@+id/txtServiceName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Service Name"
+            android:textStyle="bold|normal"
+            android:paddingLeft="10dp"
+            android:textSize="18dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llBookingDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Booking Date :"
+            android:textStyle="bold|normal"
+            android:textSize="18dp"/>
+
+        <TextView
+            android:id="@+id/txtBookingDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Booking Date"
+            android:textStyle="bold|normal"
+            android:paddingLeft="10dp"
+            android:textSize="18dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llBookingVINno"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="VIN Number :"
+            android:textStyle="bold|normal"
+            android:textSize="18dp"/>
+
+        <TextView
+            android:id="@+id/txtBookingVINno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Booking VIN Number"
+            android:textStyle="bold|normal"
+            android:paddingLeft="10dp"
+            android:textSize="18dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llBookingTimeSlot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Time Slot :"
+            android:textStyle="bold|normal"
+            android:textSize="18dp"/>
+
+        <TextView
+            android:id="@+id/txtBTimeSlott"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Time Slot"
+            android:textStyle="bold|normal"
+            android:paddingLeft="10dp"
+            android:textSize="18dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>
