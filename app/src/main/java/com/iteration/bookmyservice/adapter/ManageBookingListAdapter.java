@@ -6,10 +6,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.ScrollingTabContainerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -46,6 +48,7 @@ public class ManageBookingListAdapter extends RecyclerView.Adapter<ManageBooking
     ArrayList<Timeslot> TimeslotDListArray = new ArrayList<>();
     ArrayList<String> TimeslotDIdArray = new ArrayList<>();
     ArrayList<String> TimeslotDArray = new ArrayList<>();
+    String ServiceId,TimeSlotId;
 
     public ManageBookingListAdapter(Context context, ArrayList<Booking> bookingListArray) {
         this.context = context;
@@ -76,7 +79,7 @@ public class ManageBookingListAdapter extends RecyclerView.Adapter<ManageBooking
         String booking_date = bookingListArray.get(position).getBooking_date();
         String booking_vinno = bookingListArray.get(position).getBooking_vinno();
         String booking_comment = bookingListArray.get(position).getBooking_comment();
-        int booking_t_id = Integer.parseInt(bookingListArray.get(position).getBooking_t_id());
+        final int booking_t_id = Integer.parseInt(bookingListArray.get(position).getBooking_t_id());
         String t_timeslot = bookingListArray.get(position).getT_timeslot();
 
         viewHolder.txtMBName.setText(booking_name);
@@ -204,7 +207,7 @@ public class ManageBookingListAdapter extends RecyclerView.Adapter<ManageBooking
 
                             ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, ServiceDNameArray);
                             spDService.setAdapter(adapter);
-
+                            spDService.setSelection(booking_service_id-1);
                         }
                         else
                         {
@@ -217,9 +220,6 @@ public class ManageBookingListAdapter extends RecyclerView.Adapter<ManageBooking
                         Toast.makeText(context, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
                     }
                 });
-
-                spDService.setSelection(4);
-                Log.d("booking_service", ""+booking_service_id);
 
                 Call<TimeslotList> TimeslotListCall = productDataService.getTimeslotData();
                 TimeslotListCall.enqueue(new Callback<TimeslotList>() {
@@ -240,6 +240,8 @@ public class ManageBookingListAdapter extends RecyclerView.Adapter<ManageBooking
 
                             ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, TimeslotDArray);
                             spDTimeSlot.setAdapter(adapter);
+                            spDTimeSlot.setSelection(booking_t_id-1);
+
                         }
                         else
                         {
@@ -253,10 +255,66 @@ public class ManageBookingListAdapter extends RecyclerView.Adapter<ManageBooking
                     }
                 });
 
+
+
+                spDService.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        int po = spDService.getSelectedItemPosition();
+                        ServiceId = ServiceDIdArray.get(po);
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+
+                spDTimeSlot.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        int po = spDTimeSlot.getSelectedItemPosition();
+                        TimeSlotId = TimeslotDIdArray.get(po);
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+
                 txtBtnDUpdate.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        final ProgressDialog d = new ProgressDialog(context);
+                        d.setMessage("Loading...");
+                        d.setCancelable(true);
+                        d.show();
 
+                        Call<Message> EditBookingCall = productDataService.getEditBookingData(booking_id,ServiceId,TimeSlotId);
+                        EditBookingCall.enqueue(new Callback<Message>() {
+                            @Override
+                            public void onResponse(Call<Message> call, Response<Message> response) {
+                                dialog.dismiss();
+                                d.dismiss();
+                                String status = response.body().getStatus();
+                                String message = response.body().getMessage();
+                                if (status.equals("1"))
+                                {
+                                    Intent i = new Intent(context,ManageBookingActivity.class);
+                                    context.startActivity(i);
+                                }
+                                else
+                                {
+                                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<Message> call, Throwable t) {
+                                Toast.makeText(context, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
                 });
 
