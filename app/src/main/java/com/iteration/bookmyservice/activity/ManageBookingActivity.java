@@ -107,6 +107,7 @@ public class ManageBookingActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+        finish();
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

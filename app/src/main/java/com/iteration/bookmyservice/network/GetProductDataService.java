@@ -58,4 +58,8 @@ public interface GetProductDataService {
     @POST("webservice/manage_booking.php")
     Call<BookingList> getManageBookingData(@Field("booking_email") String email);
 
+    @FormUrlEncoded
+    @POST("webservice/delete_booking.php")
+    Call<Message> getDeleteBookingData(@Field("booking_id") String booking_id);
+
 }
