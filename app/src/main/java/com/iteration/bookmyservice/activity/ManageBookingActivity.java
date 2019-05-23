@@ -43,6 +43,7 @@ public class ManageBookingActivity extends AppCompatActivity
     SessionManager session;
     RecyclerView rvManageBooking;
     ArrayList<Booking> BookingListArray = new ArrayList<>();
+    int flag = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +62,7 @@ public class ManageBookingActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         session = new SessionManager(ManageBookingActivity.this);
+        flag = session.checkLogin();
 
         HashMap<String,String> user = session.getUserDetails();
         String user_email = user.get(SessionManager.user_email);
@@ -73,29 +75,36 @@ public class ManageBookingActivity extends AppCompatActivity
         RecyclerView.LayoutManager manager = new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.VERTICAL,false);
         rvManageBooking.setLayoutManager(manager);
 
-        Call<BookingList> BookingListCall = productDataService.getManageBookingData(user_email);
-        BookingListCall.enqueue(new Callback<BookingList>() {
-            @Override
-            public void onResponse(Call<BookingList> call, Response<BookingList> response) {
-                String status = response.body().getStatus();
-                String message = response.body().getMessage();
-                if (status.equals("1"))
-                {
-                    BookingListArray = response.body().getBookingList();
-                    ManageBookingListAdapter manageBookingListAdapter = new ManageBookingListAdapter(ManageBookingActivity.this, BookingListArray);
-                    rvManageBooking.setAdapter(manageBookingListAdapter);
+        if (flag == 1)
+        {
+            Call<BookingList> BookingListCall = productDataService.getManageBookingData(user_email);
+            BookingListCall.enqueue(new Callback<BookingList>() {
+                @Override
+                public void onResponse(Call<BookingList> call, Response<BookingList> response) {
+                    String status = response.body().getStatus();
+                    String message = response.body().getMessage();
+                    if (status.equals("1"))
+                    {
+                        BookingListArray = response.body().getBookingList();
+                        ManageBookingListAdapter manageBookingListAdapter = new ManageBookingListAdapter(ManageBookingActivity.this, BookingListArray);
+                        rvManageBooking.setAdapter(manageBookingListAdapter);
+                    }
+                    else
+                    {
+                        Toast.makeText(ManageBookingActivity.this, message, Toast.LENGTH_SHORT).show();
+                    }
                 }
-                else
-                {
-                    Toast.makeText(ManageBookingActivity.this, message, Toast.LENGTH_SHORT).show();
-                }
-            }
 
-            @Override
-            public void onFailure(Call<BookingList> call, Throwable t) {
-                Toast.makeText(ManageBookingActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onFailure(Call<BookingList> call, Throwable t) {
+                    Toast.makeText(ManageBookingActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+        else
+        {
+            rvManageBooking.setVisibility(View.GONE);
+        }
 
     }
 

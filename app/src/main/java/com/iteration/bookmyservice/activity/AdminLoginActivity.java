@@ -13,6 +13,7 @@ import com.iteration.bookmyservice.R;
 import com.iteration.bookmyservice.model.MessageLogin;
 import com.iteration.bookmyservice.network.GetProductDataService;
 import com.iteration.bookmyservice.network.RetrofitInstance;
+import com.iteration.bookmyservice.network.SessionAdminManager;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -20,10 +21,14 @@ import retrofit2.Response;
 
 public class AdminLoginActivity extends AppCompatActivity {
 
+    SessionAdminManager session;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_login);
+
+        session = new SessionAdminManager(getApplicationContext());
 
         final EditText txtUName = (EditText)findViewById(R.id.txtUName);
         final EditText txtPassword = (EditText)findViewById(R.id.txtPassword);
@@ -52,6 +57,7 @@ public class AdminLoginActivity extends AppCompatActivity {
                         if (status.equals("1"))
                         {
                             String Email = response.body().getEmail();
+                            session.createLoginSession(Email);
                             Toast.makeText(AdminLoginActivity.this, message, Toast.LENGTH_SHORT).show();
                             Intent i = new Intent(AdminLoginActivity.this, AdminBookingActivity.class);
                             startActivity(i);

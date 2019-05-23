@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,7 +64,10 @@ public class OurPlaceFragment extends Fragment {
         RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
         rvOurPlace.setLayoutManager(manager);
 
-        Call<BookingList> BookingListCall = productDataService.getAdminBookingData("15-05-2019","Our Place","Pending");
+        String date = AdminBookingActivity.tvBDate;
+        Log.d("date",date);
+
+        Call<BookingList> BookingListCall = productDataService.getAdminBookingData(date,"Our Place","Pending");
         BookingListCall.enqueue(new Callback<BookingList>() {
             @Override
             public void onResponse(Call<BookingList> call, Response<BookingList> response) {
@@ -86,6 +90,7 @@ public class OurPlaceFragment extends Fragment {
                 Toast.makeText(getActivity(), "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
             }
         });
+
         return view;
     }
 

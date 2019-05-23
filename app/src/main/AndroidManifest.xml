@@ -12,8 +12,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.ConformBookingActivity"></activity>
-        <activity android:name=".activity.AdminBookingActivity" />
+        <activity
+            android:name=".activity.AdminBookingActivity"
+            android:label="@string/title_activity_admin_booking"
+            android:theme="@style/AppTheme.ActionBar"/>
+
+        <activity android:name=".activity.ConformBookingActivity" />
         <activity
             android:name=".activity.AdminLoginActivity"
             android:theme="@style/AppTheme.ActionBar" />

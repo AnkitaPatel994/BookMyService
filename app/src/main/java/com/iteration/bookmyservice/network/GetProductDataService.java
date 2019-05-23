@@ -5,7 +5,6 @@ import com.iteration.bookmyservice.model.Message;
 import com.iteration.bookmyservice.model.MessageLogin;
 import com.iteration.bookmyservice.model.MessageOTP;
 import com.iteration.bookmyservice.model.ServiceList;
-import com.iteration.bookmyservice.model.Slider;
 import com.iteration.bookmyservice.model.SliderList;
 import com.iteration.bookmyservice.model.TimeslotList;
 
@@ -35,6 +34,7 @@ public interface GetProductDataService {
     Call<Message> getAddBookingData(@Field("booking_name") String booking_name,
                                     @Field("booking_email") String booking_email,
                                     @Field("booking_phone") String booking_phone,
+                                    @Field("booking_service_opt") String booking_service_opt,
                                     @Field("booking_address") String booking_address,
                                     @Field("booking_service_id") String booking_service_id,
                                     @Field("booking_date") String booking_date,
@@ -67,5 +67,10 @@ public interface GetProductDataService {
     Call<Message> getEditBookingData(@Field("booking_id") String booking_id,
                                      @Field("booking_service_id") String booking_service_id,
                                      @Field("booking_t_id") String booking_t_id);
+
+    @FormUrlEncoded
+    @POST("webservice/conform_booking.php")
+    Call<Message> getConformBookingData(@Field("booking_id") String booking_id,
+                                        @Field("booking_status") String booking_status);
 
 }

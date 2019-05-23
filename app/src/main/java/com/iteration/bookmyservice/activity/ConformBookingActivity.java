@@ -1,11 +1,23 @@
 package com.iteration.bookmyservice.activity;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.iteration.bookmyservice.R;
+import com.iteration.bookmyservice.model.Message;
+import com.iteration.bookmyservice.network.GetProductDataService;
+import com.iteration.bookmyservice.network.RetrofitInstance;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ConformBookingActivity extends AppCompatActivity {
 
@@ -16,6 +28,11 @@ public class ConformBookingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conform_booking);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
         txtCBookingName = (TextView)findViewById(R.id.txtCBookingName);
         txtCBookingEmail = (TextView)findViewById(R.id.txtCBookingEmail);
@@ -30,7 +47,9 @@ public class ConformBookingActivity extends AppCompatActivity {
         btnDone = (Button)findViewById(R.id.btnDone);
         btnCancel = (Button)findViewById(R.id.btnCancel);
 
-        String booking_id = getIntent().getExtras().getString("booking_id");
+        final GetProductDataService productDataService = RetrofitInstance.getRetrofitInstance().create(GetProductDataService.class);
+
+        final String booking_id = getIntent().getExtras().getString("booking_id");
         String booking_name = getIntent().getExtras().getString("booking_name");
         String booking_email = getIntent().getExtras().getString("booking_email");
         String booking_phone = getIntent().getExtras().getString("booking_phone");
@@ -51,6 +70,60 @@ public class ConformBookingActivity extends AppCompatActivity {
         txtCComment.setText(booking_comment);
         txtCTimeSlott.setText(t_timeslot);
 
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ConformBookingActivity.super.onBackPressed();
+            }
+        });
 
+        btnDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final ProgressDialog d = new ProgressDialog(ConformBookingActivity.this);
+                d.setMessage("Loading...");
+                d.setCancelable(true);
+                d.show();
+
+                Call<Message> ConformBookingCall = productDataService.getConformBookingData(booking_id,"Conform");
+                ConformBookingCall.enqueue(new Callback<Message>() {
+                    @Override
+                    public void onResponse(Call<Message> call, Response<Message> response) {
+                        d.dismiss();
+                        String status = response.body().getStatus();
+                        String message = response.body().getMessage();
+                        if (status.equals("1"))
+                        {
+                            Intent i = new Intent(ConformBookingActivity.this, AdminBookingActivity.class);
+                            startActivity(i);
+                        }
+                        else
+                        {
+                            Toast.makeText(ConformBookingActivity.this, message, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Message> call, Throwable t) {
+                        Toast.makeText(ConformBookingActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
+            }
+        });
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if(id == android.R.id.home)
+            finish();
+
+        return super.onOptionsItemSelected(item);
     }
 }

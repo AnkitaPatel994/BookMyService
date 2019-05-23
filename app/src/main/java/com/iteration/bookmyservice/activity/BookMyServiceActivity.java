@@ -44,6 +44,7 @@ import com.iteration.bookmyservice.network.SessionManager;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -71,8 +72,9 @@ public class BookMyServiceActivity extends AppCompatActivity
     int mYear = c.get(Calendar.YEAR);
     int mMonth = c.get(Calendar.MONTH);
     int mDay = c.get(Calendar.DAY_OF_MONTH);
-    String OTP,ServiceId,TimeSlotId;
+    String OTP,ServiceId,TimeSlotId,service_opt;
     SessionManager session;
+    int flag = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +90,10 @@ public class BookMyServiceActivity extends AppCompatActivity
         toggle.syncState();
 
         session = new SessionManager(BookMyServiceActivity.this);
+        flag = session.checkLogin();
+
+        HashMap<String,String> user = session.getUserDetails();
+        String user_email = user.get(SessionManager.user_email);
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -111,6 +117,24 @@ public class BookMyServiceActivity extends AppCompatActivity
         rbYourPlace = (RadioButton) findViewById(R.id.rbYourPlace);
         rbOurPlace = (RadioButton) findViewById(R.id.rbOurPlace);
         rbYourPlace.setChecked(true);
+
+        if (flag == 1)
+        {
+            llOTPBox.setVisibility(View.GONE);
+            btnEmailVeri.setVisibility(View.GONE);
+            btnEmailSend.setVisibility(View.GONE);
+            llBox.setVisibility(View.VISIBLE);
+            txtEmail.setText(user_email);
+            txtEmail.setEnabled(false);
+        }
+        else
+        {
+            llOTPBox.setVisibility(View.GONE);
+            btnEmailVeri.setVisibility(View.GONE);
+            btnEmailSend.setVisibility(View.VISIBLE);
+            llBox.setVisibility(View.GONE);
+            txtEmail.setEnabled(true);
+        }
 
         btnEmailSend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -176,6 +200,8 @@ public class BookMyServiceActivity extends AppCompatActivity
             }
         });
 
+        service_opt = "Your Place";
+
         rgServiceOpt.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -184,10 +210,12 @@ public class BookMyServiceActivity extends AppCompatActivity
                     case R.id.rbYourPlace:
                         txtAddress.setEnabled(true);
                         txtAddress.setText("");
+                        service_opt = "Your Place";
                         break;
                     case R.id.rbOurPlace:
                         txtAddress.setText("fgdh");
                         txtAddress.setEnabled(false);
+                        service_opt = "Our Place";
                         break;
                 }
             }
@@ -341,13 +369,14 @@ public class BookMyServiceActivity extends AppCompatActivity
                     String booking_comment = txtComment.getText().toString();
                     String booking_t_id = TimeSlotId;
                     String booking_status = "Pending";
+                    String booking_service_opt = service_opt;
 
                     final ProgressDialog dialog = new ProgressDialog(BookMyServiceActivity.this);
                     dialog.setMessage("Loading...");
                     dialog.setCancelable(true);
                     dialog.show();
 
-                    Call<Message> AddBookingCall = productDataService.getAddBookingData(booking_name,booking_email,booking_phone,booking_address,booking_service_id,booking_date,booking_vinno,booking_comment,booking_t_id,booking_status);
+                    Call<Message> AddBookingCall = productDataService.getAddBookingData(booking_name,booking_email,booking_phone,booking_service_opt,booking_address,booking_service_id,booking_date,booking_vinno,booking_comment,booking_t_id,booking_status);
                     AddBookingCall.enqueue(new Callback<Message>() {
                         @Override
                         public void onResponse(Call<Message> call, Response<Message> response) {
