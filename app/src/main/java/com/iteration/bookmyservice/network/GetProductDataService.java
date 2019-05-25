@@ -22,8 +22,9 @@ public interface GetProductDataService {
     @GET("webservice/service.php")
     Call<ServiceList> getServiceData();
 
-    @GET("webservice/timeslot.php")
-    Call<TimeslotList> getTimeslotData();
+    @FormUrlEncoded
+    @POST("webservice/timeslot.php")
+    Call<TimeslotList> getTimeslotData(@Field("booking_date") String booking_date);
 
     @FormUrlEncoded
     @POST("webservice/emailsendotp.php")

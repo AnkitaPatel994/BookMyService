@@ -42,8 +42,10 @@ import com.iteration.bookmyservice.network.GetProductDataService;
 import com.iteration.bookmyservice.network.RetrofitInstance;
 import com.iteration.bookmyservice.network.SessionManager;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 import retrofit2.Call;
@@ -269,9 +271,48 @@ public class BookMyServiceActivity extends AppCompatActivity
             }
         });
 
+        llDate = (LinearLayout)findViewById(R.id.llDate);
+        txtDate = (TextView) findViewById(R.id.txtDate);
+
+        SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MM-yyyy");
+        txtDate.setText(sdfDate.format(new Date()));
+
+        llDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerDialog mDatePicker;
+                mDatePicker = new DatePickerDialog(BookMyServiceActivity.this,new DatePickerDialog.OnDateSetListener() {
+                    public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
+                        selectedmonth = selectedmonth + 1;
+
+                        if(selectedmonth < 10 && selectedday < 10)
+                        {
+                            txtDate.setText("0"+selectedday + "-" + "0"+selectedmonth + "-" + selectedyear);
+                        }
+                        else if(selectedmonth < 10)
+                        {
+                            txtDate.setText(selectedday + "-" + "0"+selectedmonth + "-" + selectedyear);
+                        }
+                        else if(selectedday < 10)
+                        {
+                            txtDate.setText("0"+selectedday + "-" + selectedmonth + "-" + selectedyear);
+                        }
+                        else
+                        {
+                            txtDate.setText(selectedday + "-" + selectedmonth + "-" + selectedyear);
+                        }
+                    }
+                }, mYear, mMonth, mDay);
+                //mDatePicker.getDatePicker().setMinDate(c.getTimeInMillis());
+                mDatePicker.show();
+            }
+        });
+
         spTimeSlot = (Spinner)findViewById(R.id.spTimeSlot);
 
-        Call<TimeslotList> TimeslotListCall = productDataService.getTimeslotData();
+        String date = txtDate.getText().toString();
+
+        Call<TimeslotList> TimeslotListCall = productDataService.getTimeslotData(date);
         TimeslotListCall.enqueue(new Callback<TimeslotList>() {
             @Override
             public void onResponse(Call<TimeslotList> call, Response<TimeslotList> response) {
@@ -315,40 +356,6 @@ public class BookMyServiceActivity extends AppCompatActivity
 
             }
         });
-
-        llDate = (LinearLayout)findViewById(R.id.llDate);
-        txtDate = (TextView) findViewById(R.id.txtDate);
-        llDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DatePickerDialog mDatePicker;
-                mDatePicker = new DatePickerDialog(BookMyServiceActivity.this,new DatePickerDialog.OnDateSetListener() {
-                    public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
-                        selectedmonth = selectedmonth + 1;
-
-                        if(selectedmonth < 10 && selectedday < 10)
-                        {
-                            txtDate.setText("0"+selectedday + "-" + "0"+selectedmonth + "-" + selectedyear);
-                        }
-                        else if(selectedmonth < 10)
-                        {
-                            txtDate.setText(selectedday + "-" + "0"+selectedmonth + "-" + selectedyear);
-                        }
-                        else if(selectedday < 10)
-                        {
-                            txtDate.setText("0"+selectedday + "-" + selectedmonth + "-" + selectedyear);
-                        }
-                        else
-                        {
-                            txtDate.setText(selectedday + "-" + selectedmonth + "-" + selectedyear);
-                        }
-                    }
-                }, mYear, mMonth, mDay);
-                //mDatePicker.getDatePicker().setMinDate(c.getTimeInMillis());
-                mDatePicker.show();
-            }
-        });
-
 
         cbCondition = (CheckBox)findViewById(R.id.cbCondition);
         btnSubmit = (Button) findViewById(R.id.btnSubmit);

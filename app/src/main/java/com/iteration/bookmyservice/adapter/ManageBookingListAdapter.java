@@ -76,7 +76,7 @@ public class ManageBookingListAdapter extends RecyclerView.Adapter<ManageBooking
         String booking_address = bookingListArray.get(position).getBooking_address();
         final int booking_service_id = Integer.parseInt(bookingListArray.get(position).getBooking_service_id());
         String Service_name = bookingListArray.get(position).getService_name();
-        String booking_date = bookingListArray.get(position).getBooking_date();
+        final String booking_date = bookingListArray.get(position).getBooking_date();
         String booking_vinno = bookingListArray.get(position).getBooking_vinno();
         String booking_comment = bookingListArray.get(position).getBooking_comment();
         final int booking_t_id = Integer.parseInt(bookingListArray.get(position).getBooking_t_id());
@@ -221,7 +221,7 @@ public class ManageBookingListAdapter extends RecyclerView.Adapter<ManageBooking
                     }
                 });
 
-                Call<TimeslotList> TimeslotListCall = productDataService.getTimeslotData();
+                Call<TimeslotList> TimeslotListCall = productDataService.getTimeslotData(booking_date);
                 TimeslotListCall.enqueue(new Callback<TimeslotList>() {
                     @Override
                     public void onResponse(Call<TimeslotList> call, Response<TimeslotList> response) {
