@@ -172,7 +172,7 @@ public class HomeActivity extends AppCompatActivity
             @Override
             public void onPageSelected(int i) {
 
-                for (i=0;i<=sliderImgArray.size();i++){
+                for (i=0;i<sliderImgArray.size();i++){
                     currentIndex=i;
                 }
             }

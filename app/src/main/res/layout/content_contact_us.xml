@@ -10,11 +10,107 @@
     android:orientation="vertical"
     tools:showIn="@layout/app_bar_contact_us">
 
-    <TextView
+    <ScrollView
+        android:id="@+id/scrvcon"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:textSize="20dp"
-        android:text="Comming soon" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="40dp"
+            android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contact Form"
+            android:textSize="25dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="15dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/txtCName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:drawableLeft="@drawable/ic_account"
+                android:drawablePadding="25dp"
+                android:background="@drawable/textbox"
+                android:inputType="text"
+                android:hint="Enter Name"/>
+
+            <EditText
+                android:id="@+id/txtCEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:layout_marginTop="20dp"
+                android:drawablePadding="25dp"
+                android:drawableLeft="@drawable/ic_email"
+                android:inputType="textEmailAddress"
+                android:background="@drawable/textbox"
+                android:hint="Enter Email"/>
+
+            <EditText
+                android:id="@+id/txtCPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:layout_marginTop="20dp"
+                android:drawablePadding="25dp"
+                android:inputType="number"
+                android:maxLength="10"
+                android:drawableLeft="@drawable/ic_phonenumber"
+                android:background="@drawable/textbox"
+                android:hint="Enter Mobile Number"/>
+
+            <EditText
+                android:id="@+id/txtCComment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:layout_marginTop="20dp"
+                android:drawablePadding="25dp"
+                android:drawableLeft="@drawable/ic_comment"
+                android:background="@drawable/textbox"
+                android:minLines="3"
+                android:inputType="textMultiLine"
+                android:hint="Enter Comment"/>
+
+        </LinearLayout>
+
+            <Button
+                android:id="@+id/btnCSubmit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Submit"
+                android:textColor="@color/colorWhite"
+                android:layout_marginTop="50dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:background="@drawable/button_background"/>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

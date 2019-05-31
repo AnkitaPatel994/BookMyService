@@ -1,5 +1,6 @@
 package com.iteration.bookmyservice.activity;
 
+import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
@@ -16,11 +17,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.iteration.bookmyservice.R;
+import com.iteration.bookmyservice.model.Message;
+import com.iteration.bookmyservice.network.GetProductDataService;
+import com.iteration.bookmyservice.network.RetrofitInstance;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ContactUsActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    Button btnCSubmit;
+    EditText txtCName,txtCEmail,txtCPhone,txtCComment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +51,13 @@ public class ContactUsActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        txtCName = (EditText)findViewById(R.id.txtCName);
+        txtCEmail = (EditText)findViewById(R.id.txtCEmail);
+        txtCPhone = (EditText)findViewById(R.id.txtCPhone);
+        txtCComment = (EditText)findViewById(R.id.txtCComment);
+        btnCSubmit = (Button)findViewById(R.id.btnCSubmit);
+
     }
 
     @Override
