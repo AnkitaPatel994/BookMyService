@@ -120,6 +120,9 @@ public class BookMyServiceActivity extends AppCompatActivity
         rbOurPlace = (RadioButton) findViewById(R.id.rbOurPlace);
         rbYourPlace.setChecked(true);
 
+        SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm:ss");
+        Toast.makeText(BookMyServiceActivity.this,""+sdfTime.format(new Date()),Toast.LENGTH_SHORT).show();
+
         if (flag == 1)
         {
             llOTPBox.setVisibility(View.GONE);

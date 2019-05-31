@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +24,7 @@ public class ConformBookingActivity extends AppCompatActivity {
 
     TextView txtCBookingName,txtCBookingEmail,txtCBookingPhoneNo,txtCBookingAddress,txtCServiceName,txtCBookingDate,txtCBookingVINno,txtCComment,txtCTimeSlott;
     Button btnDone,btnCancel;
+    EditText txtPrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,7 @@ public class ConformBookingActivity extends AppCompatActivity {
         txtCBookingVINno = (TextView)findViewById(R.id.txtCBookingVINno);
         txtCComment = (TextView)findViewById(R.id.txtCComment);
         txtCTimeSlott = (TextView)findViewById(R.id.txtCTimeSlott);
+        txtPrice = (EditText) findViewById(R.id.txtPrice);
 
         btnDone = (Button)findViewById(R.id.btnDone);
         btnCancel = (Button)findViewById(R.id.btnCancel);
@@ -81,12 +84,14 @@ public class ConformBookingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                String booking_price = txtPrice.getText().toString();
+
                 final ProgressDialog d = new ProgressDialog(ConformBookingActivity.this);
                 d.setMessage("Loading...");
                 d.setCancelable(true);
                 d.show();
 
-                Call<Message> ConformBookingCall = productDataService.getConformBookingData(booking_id,"Conform");
+                Call<Message> ConformBookingCall = productDataService.getConformBookingData(booking_id,"Conform",booking_price);
                 ConformBookingCall.enqueue(new Callback<Message>() {
                     @Override
                     public void onResponse(Call<Message> call, Response<Message> response) {
