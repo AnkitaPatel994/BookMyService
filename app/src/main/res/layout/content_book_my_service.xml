@@ -20,7 +20,6 @@
             android:padding="8dp"
             android:orientation="vertical" >
 
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -63,6 +62,7 @@
                     android:background="@drawable/textbox"/>
 
                 <TextView
+                    android:id="@+id/txtResendOTPCode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
@@ -103,15 +103,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="gone">
+                >
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
+                    android:layout_height="match_parent"
                     android:layout_marginBottom="5dp"
                     android:layout_marginTop="10dp"
-                    android:text="Name" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:textColor="@color/colorRed"
+                        android:text="*" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="Name" />
+
+                </LinearLayout>
 
                 <EditText
                     android:id="@+id/txtName"
@@ -122,13 +136,27 @@
                     android:hint="Enter Name"
                     android:background="@drawable/textbox"/>
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_height="match_parent"
                     android:layout_marginBottom="5dp"
-                    android:text="Mobile" />
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:textColor="@color/colorRed"
+                        android:text="*" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="Mobile" />
+
+                </LinearLayout>
 
                 <EditText
                     android:id="@+id/txtMobile"
@@ -139,13 +167,27 @@
                     android:hint="Enter Mobile"
                     android:background="@drawable/textbox"/>
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_height="match_parent"
                     android:layout_marginBottom="5dp"
-                    android:text="Select Service Option" />
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:textColor="@color/colorRed"
+                        android:text="*" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="Select Service Option" />
+
+                </LinearLayout>
 
                 <RadioGroup
                     android:id="@+id/rgServiceOpt"
@@ -175,13 +217,27 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_height="match_parent"
                         android:layout_marginBottom="5dp"
-                        android:text="Select Service" />
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:textColor="@color/colorRed"
+                            android:text="*" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:text="Select Service" />
+
+                    </LinearLayout>
 
                     <Spinner
                         android:id="@+id/spService"
@@ -190,13 +246,27 @@
                         android:spinnerMode="dialog"
                         android:background="@android:drawable/btn_dropdown" />
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_height="match_parent"
                         android:layout_marginBottom="5dp"
-                        android:text="Select Date" />
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:textColor="@color/colorRed"
+                            android:text="*" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:text="Select Date" />
+
+                    </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/llDate"
@@ -214,13 +284,27 @@
 
                     </LinearLayout>
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_height="match_parent"
                         android:layout_marginBottom="5dp"
-                        android:text="Select Time Slots" />
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:textColor="@color/colorRed"
+                            android:text="*" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:text="Select Time Slots" />
+
+                    </LinearLayout>
 
                     <Spinner
                         android:id="@+id/spTimeSlot"
@@ -229,13 +313,27 @@
                         android:spinnerMode="dialog"
                         android:background="@android:drawable/btn_dropdown" />
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_height="match_parent"
                         android:layout_marginBottom="5dp"
-                        android:text="Address" />
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:textColor="@color/colorRed"
+                            android:text="*" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:text="Address" />
+
+                    </LinearLayout>
 
                     <EditText
                         android:id="@+id/txtAddress"
@@ -261,6 +359,90 @@
                         android:layout_marginTop="3dp"
                         android:padding="10dp"
                         android:hint="Enter VIN Number"
+                        android:background="@drawable/textbox"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="Make" />
+
+                    <EditText
+                        android:id="@+id/txtMake"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:padding="10dp"
+                        android:hint="Enter Make"
+                        android:background="@drawable/textbox"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="Model" />
+
+                    <EditText
+                        android:id="@+id/txtModel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:padding="10dp"
+                        android:hint="Enter Model"
+                        android:background="@drawable/textbox"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="Msg. Year" />
+
+                    <EditText
+                        android:id="@+id/txtMsgYear"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:padding="10dp"
+                        android:hint="Enter Msg. Year"
+                        android:background="@drawable/textbox"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="Engine Type" />
+
+                    <EditText
+                        android:id="@+id/txtEngineType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:padding="10dp"
+                        android:hint="Enter Engine Type"
+                        android:background="@drawable/textbox"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="Van No / Plate No" />
+
+                    <EditText
+                        android:id="@+id/txtVanPlateNo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:padding="10dp"
+                        android:hint="Enter Van No / Plate No"
                         android:background="@drawable/textbox"/>
 
                     <TextView

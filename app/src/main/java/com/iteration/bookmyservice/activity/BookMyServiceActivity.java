@@ -55,14 +55,14 @@ import retrofit2.Response;
 public class BookMyServiceActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    EditText txtName,txtEmail,txtOTP,txtMobile,txtAddress,txtVINNumber,txtComment;
+    EditText txtName,txtEmail,txtOTP,txtMobile,txtAddress,txtVINNumber,txtMake,txtModel,txtMsgYear,txtEngineType,txtVanPlateNo,txtComment;
     Button btnEmailSend,btnEmailVeri,btnSubmit;
     LinearLayout llOTPBox,llBox;
     RadioGroup rgServiceOpt;
     RadioButton rbYourPlace,rbOurPlace;
     Spinner spService,spTimeSlot;
     LinearLayout llDate;
-    TextView txtDate;
+    TextView txtDate,txtResendOTPCode;
     CheckBox cbCondition;
     ArrayList<Service> ServiceListArray = new ArrayList<>();
     ArrayList<String> ServiceIdArray = new ArrayList<>();
@@ -105,8 +105,10 @@ public class BookMyServiceActivity extends AppCompatActivity
         txtName = (EditText)findViewById(R.id.txtName);
         txtEmail = (EditText)findViewById(R.id.txtEmail);
         txtOTP = (EditText)findViewById(R.id.txtOTP);
+
         llOTPBox = (LinearLayout) findViewById(R.id.llOTPBox);
         llBox = (LinearLayout) findViewById(R.id.llBox);
+        txtResendOTPCode = (TextView) findViewById(R.id.txtResendOTPCode);
 
         btnEmailSend = (Button) findViewById(R.id.btnEmailSend);
         btnEmailVeri = (Button)findViewById(R.id.btnEmailVeri);
@@ -114,14 +116,16 @@ public class BookMyServiceActivity extends AppCompatActivity
         txtMobile = (EditText)findViewById(R.id.txtMobile);
         txtAddress = (EditText)findViewById(R.id.txtAddress);
         txtVINNumber = (EditText)findViewById(R.id.txtVINNumber);
+        txtMake = (EditText)findViewById(R.id.txtMake);
+        txtModel = (EditText)findViewById(R.id.txtModel);
+        txtMsgYear = (EditText)findViewById(R.id.txtMsgYear);
+        txtEngineType = (EditText)findViewById(R.id.txtEngineType);
+        txtVanPlateNo = (EditText)findViewById(R.id.txtVanPlateNo);
         txtComment = (EditText)findViewById(R.id.txtComment);
         rgServiceOpt = (RadioGroup) findViewById(R.id.rgServiceOpt);
         rbYourPlace = (RadioButton) findViewById(R.id.rbYourPlace);
         rbOurPlace = (RadioButton) findViewById(R.id.rbOurPlace);
         rbYourPlace.setChecked(true);
-
-        SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm:ss");
-        Toast.makeText(BookMyServiceActivity.this,""+sdfTime.format(new Date()),Toast.LENGTH_SHORT).show();
 
         if (flag == 1)
         {
@@ -140,6 +144,19 @@ public class BookMyServiceActivity extends AppCompatActivity
             llBox.setVisibility(View.GONE);
             txtEmail.setEnabled(true);
         }
+
+        txtResendOTPCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                llOTPBox.setVisibility(View.GONE);
+                btnEmailVeri.setVisibility(View.GONE);
+                btnEmailSend.setVisibility(View.VISIBLE);
+                llBox.setVisibility(View.GONE);
+                txtEmail.setText("");
+                txtOTP.setText("");
+                txtEmail.setEnabled(true);
+            }
+        });
 
         btnEmailSend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -363,6 +380,8 @@ public class BookMyServiceActivity extends AppCompatActivity
         cbCondition = (CheckBox)findViewById(R.id.cbCondition);
         btnSubmit = (Button) findViewById(R.id.btnSubmit);
 
+
+
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -376,17 +395,25 @@ public class BookMyServiceActivity extends AppCompatActivity
                     String booking_service_id = ServiceId;
                     String booking_date = txtDate.getText().toString();
                     String booking_vinno = txtVINNumber.getText().toString();
+                    String booking_make = txtMake.getText().toString();
+                    String booking_model = txtModel.getText().toString();
+                    String booking_msgyear = txtMsgYear.getText().toString();
+                    String booking_enginetype = txtEngineType.getText().toString();
+                    String booking_vanplateno = txtVanPlateNo.getText().toString();
                     String booking_comment = txtComment.getText().toString();
                     String booking_t_id = TimeSlotId;
                     String booking_status = "Pending";
                     String booking_service_opt = service_opt;
+
+                    SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm:ss");
+                    String booking_time = sdfTime.format(new Date());
 
                     final ProgressDialog dialog = new ProgressDialog(BookMyServiceActivity.this);
                     dialog.setMessage("Loading...");
                     dialog.setCancelable(true);
                     dialog.show();
 
-                    Call<Message> AddBookingCall = productDataService.getAddBookingData(booking_name,booking_email,booking_phone,booking_service_opt,booking_address,booking_service_id,booking_date,booking_vinno,booking_comment,booking_t_id,booking_status);
+                    Call<Message> AddBookingCall = productDataService.getAddBookingData(booking_name,booking_email,booking_phone,booking_service_opt,booking_address,booking_service_id,booking_date,booking_vinno,booking_make,booking_model,booking_msgyear,booking_enginetype,booking_vanplateno,booking_comment,booking_t_id,booking_status,booking_time);
                     AddBookingCall.enqueue(new Callback<Message>() {
                         @Override
                         public void onResponse(Call<Message> call, Response<Message> response) {
