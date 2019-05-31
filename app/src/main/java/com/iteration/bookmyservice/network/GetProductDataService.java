@@ -75,4 +75,5 @@ public interface GetProductDataService {
                                         @Field("booking_status") String booking_status,
                                         @Field("booking_price") String booking_price);
 
+
 }
