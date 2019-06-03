@@ -40,7 +40,7 @@
                 android:paddingBottom="20dp"
                 android:layout_height="250dp" />
 
-            <LinearLayout
+            <!--<LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -130,7 +130,7 @@
 
                 </LinearLayout>
 
-            </LinearLayout>
+            </LinearLayout>-->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -226,8 +226,92 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="1.3"
                 android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/llAboutUs"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/ll_box"
+                    android:padding="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="1"
+                    android:elevation="5dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="15dp"
+                        android:paddingBottom="15dp"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:background="@drawable/ll_dash_box">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:tint="@color/colorPrimary"
+                            app:srcCompat="@drawable/ic_about" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:gravity="center"
+                            android:textColor="@color/colorPrimary"
+                            android:text="About \nus" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llOurService"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/ll_box"
+                    android:padding="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:elevation="5dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="15dp"
+                        android:paddingBottom="15dp"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:background="@drawable/ll_dash_box">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:tint="@color/colorPrimary"
+                            app:srcCompat="@drawable/services" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_marginTop="10dp"
+                            android:textColor="@color/colorPrimary"
+                            android:text="Our \nService" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/llFAQ"
@@ -265,7 +349,7 @@
                             android:gravity="center"
                             android:layout_marginTop="10dp"
                             android:textColor="@color/colorPrimary"
-                            android:text="FAQ" />
+                            android:text="FAQ \n" />
 
                     </LinearLayout>
 
@@ -307,7 +391,7 @@
                             android:gravity="center"
                             android:layout_marginTop="10dp"
                             android:textColor="@color/colorPrimary"
-                            android:text="Contact Us" />
+                            android:text="Contact \nUs" />
 
                     </LinearLayout>
 

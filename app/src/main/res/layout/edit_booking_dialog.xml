@@ -39,11 +39,24 @@
             android:layout_marginBottom="10dp"
             android:text="Service Name"/>
 
-        <Spinner
-            android:id="@+id/spDService"
+        <LinearLayout
+            android:id="@+id/llDServiceName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:drawable/btn_dropdown" />
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@android:drawable/btn_dropdown">
+
+            <TextView
+                android:id="@+id/txtDServiceName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="Service Name"/>
+
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"

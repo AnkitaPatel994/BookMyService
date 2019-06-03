@@ -11,4 +11,5 @@
     <color name="colorBlue">#3333ff</color>
     <color name="colorBlueDark">#0000e6</color>
     <color name="colorGreyDark">#9E9B99</color>
+    <color name="colorDivider">#CACACA</color>
 </resources>

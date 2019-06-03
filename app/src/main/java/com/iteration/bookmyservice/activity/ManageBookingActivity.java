@@ -77,11 +77,6 @@ public class ManageBookingActivity extends AppCompatActivity
         RecyclerView.LayoutManager manager = new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.VERTICAL,false);
         rvManageBooking.setLayoutManager(manager);
 
-        Date oldDate = new Date(); // oldDate == current time
-        Date newDate = new Date(oldDate.getTime() + TimeUnit.HOURS.toMillis(24)); // Adds 2 hours
-
-        Toast.makeText(ManageBookingActivity.this,""+oldDate+"/"+newDate,Toast.LENGTH_SHORT).show();
-
         if (flag == 1)
         {
             Call<BookingList> BookingListCall = productDataService.getManageBookingData(user_email);

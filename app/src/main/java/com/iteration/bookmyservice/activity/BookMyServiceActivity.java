@@ -1,14 +1,21 @@
 package com.iteration.bookmyservice.activity;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,12 +25,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -32,6 +42,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.iteration.bookmyservice.R;
+import com.iteration.bookmyservice.adapter.ManageBookingListAdapter;
 import com.iteration.bookmyservice.model.Message;
 import com.iteration.bookmyservice.model.MessageOTP;
 import com.iteration.bookmyservice.model.Service;
@@ -60,7 +71,7 @@ public class BookMyServiceActivity extends AppCompatActivity
     LinearLayout llOTPBox,llBox;
     RadioGroup rgServiceOpt;
     RadioButton rbYourPlace,rbOurPlace;
-    Spinner spService,spTimeSlot;
+    Spinner spTimeSlot;
     LinearLayout llDate;
     TextView txtDate,txtResendOTPCode;
     CheckBox cbCondition;
@@ -74,9 +85,12 @@ public class BookMyServiceActivity extends AppCompatActivity
     int mYear = c.get(Calendar.YEAR);
     int mMonth = c.get(Calendar.MONTH);
     int mDay = c.get(Calendar.DAY_OF_MONTH);
-    String OTP,ServiceId,TimeSlotId,service_opt;
+    String OTP,TimeSlotId,service_opt;
     SessionManager session;
     int flag = 0;
+    TextView txtService;
+    ArrayList<String> positions = new ArrayList<String>();
+    String BookinglistString="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -243,51 +257,78 @@ public class BookMyServiceActivity extends AppCompatActivity
             }
         });
 
-        spService = (Spinner)findViewById(R.id.spService);
+        LinearLayout llService = (LinearLayout)findViewById(R.id.llService);
+        txtService = (TextView)findViewById(R.id.txtService);
 
-        Call<ServiceList> ServiceListCall = productDataService.getServiceData();
-        ServiceListCall.enqueue(new Callback<ServiceList>() {
+        llService.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onResponse(Call<ServiceList> call, Response<ServiceList> response) {
-                String status = response.body().getStatus();
-                String message = response.body().getMessage();
-                if(status.equals("1"))
-                {
-                    ServiceListArray = response.body().getServiceList();
-                    for (int i=0;i<ServiceListArray.size();i++)
-                    {
-                        String service_name = ServiceListArray.get(i).getService_name();
-                        ServiceNameArray.add(service_name);
-                        String service_id = ServiceListArray.get(i).getService_id();
-                        ServiceIdArray.add(service_id);
+            public void onClick(View v) {
+
+                positions.clear();
+                BookinglistString = "";
+
+                final Dialog dial = new Dialog(BookMyServiceActivity.this,android.R.style.Theme_Light_NoTitleBar);
+                dial.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                dial.setContentView(R.layout.service_list_dialog);
+                dial.setCancelable(true);
+
+                Button btnDDone = (Button)dial.findViewById(R.id.btnDDone);
+                ImageView ivDClose = (ImageView)dial.findViewById(R.id.ivDClose);
+                ivDClose.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dial.dismiss();
+                    }
+                });
+
+                final RecyclerView rvDServiceList = (RecyclerView)dial.findViewById(R.id.rvDServiceList);
+                rvDServiceList.setHasFixedSize(true);
+
+                RecyclerView.LayoutManager manager = new LinearLayoutManager(BookMyServiceActivity.this,LinearLayoutManager.VERTICAL,false);
+                rvDServiceList.setLayoutManager(manager);
+
+                Call<ServiceList> ServiceListCall = productDataService.getServiceData();
+                ServiceListCall.enqueue(new Callback<ServiceList>() {
+                    @Override
+                    public void onResponse(Call<ServiceList> call, Response<ServiceList> response) {
+                        String status = response.body().getStatus();
+                        String message = response.body().getMessage();
+                        if(status.equals("1"))
+                        {
+                            ServiceListArray = response.body().getServiceList();
+                            ServiceMultiListAdapter serviceMultiListAdapter = new ServiceMultiListAdapter(BookMyServiceActivity.this, ServiceListArray);
+                            rvDServiceList.setAdapter(serviceMultiListAdapter);
+
+                        }
+                        else
+                        {
+                            Toast.makeText(BookMyServiceActivity.this, message, Toast.LENGTH_SHORT).show();
+                        }
                     }
 
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, ServiceNameArray);
-                    spService.setAdapter(adapter);
+                    @Override
+                    public void onFailure(Call<ServiceList> call, Throwable t) {
+                        Toast.makeText(BookMyServiceActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                positions.clear();
+                btnDDone.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        for (String ss : positions)
+                        {
+                            if(BookinglistString == ""){
+                                BookinglistString += ss;
+                            }else{
+                                BookinglistString += "," + ss;
+                            }
+                        }
+                        txtService.setText(BookinglistString);
+                        dial.dismiss();
+                    }
+                });
 
-                }
-                else
-                {
-                    Toast.makeText(BookMyServiceActivity.this, message, Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ServiceList> call, Throwable t) {
-                Toast.makeText(BookMyServiceActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        spService.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                int po = spService.getSelectedItemPosition();
-                ServiceId = ServiceIdArray.get(po);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
+                dial.show();
             }
         });
 
@@ -332,7 +373,7 @@ public class BookMyServiceActivity extends AppCompatActivity
 
         String date = txtDate.getText().toString();
 
-        Call<TimeslotList> TimeslotListCall = productDataService.getTimeslotData(date);
+        Call<TimeslotList> TimeslotListCall = productDataService.getTimeslotData();
         TimeslotListCall.enqueue(new Callback<TimeslotList>() {
             @Override
             public void onResponse(Call<TimeslotList> call, Response<TimeslotList> response) {
@@ -392,7 +433,7 @@ public class BookMyServiceActivity extends AppCompatActivity
                     String booking_email = txtEmail.getText().toString();
                     String booking_phone = txtMobile.getText().toString();
                     String booking_address = txtAddress.getText().toString();
-                    String booking_service_id = ServiceId;
+                    String booking_service_name = BookinglistString;
                     String booking_date = txtDate.getText().toString();
                     String booking_vinno = txtVINNumber.getText().toString();
                     String booking_make = txtMake.getText().toString();
@@ -405,7 +446,7 @@ public class BookMyServiceActivity extends AppCompatActivity
                     String booking_status = "Pending";
                     String booking_service_opt = service_opt;
 
-                    SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm:ss");
+                    SimpleDateFormat sdfTime = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
                     String booking_time = sdfTime.format(new Date());
 
                     final ProgressDialog dialog = new ProgressDialog(BookMyServiceActivity.this);
@@ -413,7 +454,7 @@ public class BookMyServiceActivity extends AppCompatActivity
                     dialog.setCancelable(true);
                     dialog.show();
 
-                    Call<Message> AddBookingCall = productDataService.getAddBookingData(booking_name,booking_email,booking_phone,booking_service_opt,booking_address,booking_service_id,booking_date,booking_vinno,booking_make,booking_model,booking_msgyear,booking_enginetype,booking_vanplateno,booking_comment,booking_t_id,booking_status,booking_time);
+                    Call<Message> AddBookingCall = productDataService.getAddBookingData(booking_name,booking_email,booking_phone,booking_service_opt,booking_address,booking_service_name,booking_date,booking_vinno,booking_make,booking_model,booking_msgyear,booking_enginetype,booking_vanplateno,booking_comment,booking_t_id,booking_status,booking_time);
                     AddBookingCall.enqueue(new Callback<Message>() {
                         @Override
                         public void onResponse(Call<Message> call, Response<Message> response) {
@@ -534,6 +575,70 @@ public class BookMyServiceActivity extends AppCompatActivity
         catch (ActivityNotFoundException e)
         {
             return false;
+        }
+    }
+
+    private class ServiceMultiListAdapter extends RecyclerView.Adapter<ServiceMultiListAdapter.ViewHolder>{
+
+        Context context;
+        ArrayList<Service> serviceListArray;
+
+        public ServiceMultiListAdapter(Context context, ArrayList<Service> serviceListArray) {
+            this.context = context;
+            this.serviceListArray = serviceListArray;
+        }
+
+        @NonNull
+        @Override
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+            View v = LayoutInflater.from(viewGroup.getContext())
+                    .inflate(R.layout.service_multi_list, viewGroup, false);
+
+            ServiceMultiListAdapter.ViewHolder viewHolder = new ServiceMultiListAdapter.ViewHolder(v);
+            return viewHolder;
+        }
+
+        @Override
+        public void onBindViewHolder(ServiceMultiListAdapter.ViewHolder viewHolder, int position) {
+
+            String Service_id = serviceListArray.get(position).getService_id();
+            final String Service_name = serviceListArray.get(position).getService_name();
+
+            viewHolder.txtSMlName.setText(Service_name);
+
+            viewHolder.chMService.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked)
+                    {
+                        positions.add(Service_name);
+                    }
+                    else
+                    {
+                        positions.remove(Service_name);
+                    }
+                }
+            });
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return serviceListArray.size();
+        }
+
+        public class ViewHolder extends RecyclerView.ViewHolder {
+
+            TextView txtSMlName;
+            CheckBox chMService;
+
+            public ViewHolder(@NonNull View itemView) {
+                super(itemView);
+
+                txtSMlName = (TextView)itemView.findViewById(R.id.txtSMlName);
+                chMService = (CheckBox) itemView.findViewById(R.id.chMService);
+
+            }
         }
     }
 }

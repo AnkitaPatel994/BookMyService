@@ -61,6 +61,11 @@ public class ConformBookingActivity extends AppCompatActivity {
         String Service_name = getIntent().getExtras().getString("Service_name");
         String booking_date = getIntent().getExtras().getString("booking_date");
         String booking_vinno = getIntent().getExtras().getString("booking_vinno");
+        String booking_make = getIntent().getExtras().getString("booking_make");
+        String booking_model = getIntent().getExtras().getString("booking_model");
+        String booking_msgyear = getIntent().getExtras().getString("booking_msgyear");
+        String booking_enginetype = getIntent().getExtras().getString("booking_enginetype");
+        String booking_vanplateno = getIntent().getExtras().getString("booking_vanplateno");
         String booking_comment = getIntent().getExtras().getString("booking_comment");
         String t_timeslot = getIntent().getExtras().getString("t_timeslot");
 

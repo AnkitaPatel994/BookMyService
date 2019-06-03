@@ -12,22 +12,34 @@ public class Booking {
     private String booking_email;
     @SerializedName("booking_phone")
     private String booking_phone;
+    @SerializedName("booking_service_opt")
+    private String booking_service_opt;
     @SerializedName("booking_address")
     private String booking_address;
-    @SerializedName("booking_service_id")
-    private String booking_service_id;
-    @SerializedName("service_name")
-    private String service_name;
+    @SerializedName("booking_service_name")
+    private String booking_service_name;
     @SerializedName("booking_date")
     private String booking_date;
     @SerializedName("booking_vinno")
     private String booking_vinno;
+    @SerializedName("booking_make")
+    private String booking_make;
+    @SerializedName("booking_model")
+    private String booking_model;
+    @SerializedName("booking_msgyear")
+    private String booking_msgyear;
+    @SerializedName("booking_enginetype")
+    private String booking_enginetype;
+    @SerializedName("booking_vanplateno")
+    private String booking_vanplateno;
     @SerializedName("booking_comment")
     private String booking_comment;
     @SerializedName("booking_t_id")
     private String booking_t_id;
     @SerializedName("t_timeslot")
     private String t_timeslot;
+    @SerializedName("booking_time")
+    private String booking_time;
 
     public String getBooking_id() {
         return booking_id;
@@ -61,6 +73,14 @@ public class Booking {
         this.booking_phone = booking_phone;
     }
 
+    public String getBooking_service_opt() {
+        return booking_service_opt;
+    }
+
+    public void setBooking_service_opt(String booking_service_opt) {
+        this.booking_service_opt = booking_service_opt;
+    }
+
     public String getBooking_address() {
         return booking_address;
     }
@@ -69,20 +89,12 @@ public class Booking {
         this.booking_address = booking_address;
     }
 
-    public String getBooking_service_id() {
-        return booking_service_id;
+    public String getBooking_service_name() {
+        return booking_service_name;
     }
 
-    public void setBooking_service_id(String booking_service_id) {
-        this.booking_service_id = booking_service_id;
-    }
-
-    public String getService_name() {
-        return service_name;
-    }
-
-    public void setService_name(String service_name) {
-        this.service_name = service_name;
+    public void setBooking_service_name(String booking_service_name) {
+        this.booking_service_name = booking_service_name;
     }
 
     public String getBooking_date() {
@@ -99,6 +111,46 @@ public class Booking {
 
     public void setBooking_vinno(String booking_vinno) {
         this.booking_vinno = booking_vinno;
+    }
+
+    public String getBooking_make() {
+        return booking_make;
+    }
+
+    public void setBooking_make(String booking_make) {
+        this.booking_make = booking_make;
+    }
+
+    public String getBooking_model() {
+        return booking_model;
+    }
+
+    public void setBooking_model(String booking_model) {
+        this.booking_model = booking_model;
+    }
+
+    public String getBooking_msgyear() {
+        return booking_msgyear;
+    }
+
+    public void setBooking_msgyear(String booking_msgyear) {
+        this.booking_msgyear = booking_msgyear;
+    }
+
+    public String getBooking_enginetype() {
+        return booking_enginetype;
+    }
+
+    public void setBooking_enginetype(String booking_enginetype) {
+        this.booking_enginetype = booking_enginetype;
+    }
+
+    public String getBooking_vanplateno() {
+        return booking_vanplateno;
+    }
+
+    public void setBooking_vanplateno(String booking_vanplateno) {
+        this.booking_vanplateno = booking_vanplateno;
     }
 
     public String getBooking_comment() {
@@ -123,5 +175,13 @@ public class Booking {
 
     public void setT_timeslot(String t_timeslot) {
         this.t_timeslot = t_timeslot;
+    }
+
+    public String getBooking_time() {
+        return booking_time;
+    }
+
+    public void setBooking_time(String booking_time) {
+        this.booking_time = booking_time;
     }
 }
