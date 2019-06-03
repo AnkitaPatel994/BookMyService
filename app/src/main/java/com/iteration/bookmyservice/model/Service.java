@@ -8,6 +8,8 @@ public class Service {
     private String service_id;
     @SerializedName("service_name")
     private String service_name;
+    @SerializedName("service_price")
+    private String service_price;
     @SerializedName("service_ex_period")
     private String service_ex_period;
 
@@ -25,6 +27,14 @@ public class Service {
 
     public void setService_name(String service_name) {
         this.service_name = service_name;
+    }
+
+    public String getService_price() {
+        return service_price;
+    }
+
+    public void setService_price(String service_price) {
+        this.service_price = service_price;
     }
 
     public String getService_ex_period() {

@@ -102,8 +102,6 @@ public class HomeActivity extends AppCompatActivity
         handler.postDelayed(runnable,1000);
         runnable.run();
 
-
-
         Call<SliderList> sliderListCall = productDataService.getSliderData();
 
         sliderListCall.enqueue(new Callback<SliderList>() {

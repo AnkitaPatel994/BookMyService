@@ -37,10 +37,11 @@ public class ServiceListAdapter extends RecyclerView.Adapter<ServiceListAdapter.
 
         String Service_id = serviceListArray.get(position).getService_id();
         String Service_name = serviceListArray.get(position).getService_name();
+        String Service_price = serviceListArray.get(position).getService_price();
         String Service_ex_period = serviceListArray.get(position).getService_ex_period();
 
         viewHolder.txtServiceName.setText(Service_name);
-        viewHolder.txtServiceExPeriod.setText(Service_ex_period);
+        viewHolder.txtServicePrice.setText("$ "+Service_price);
 
 
     }
@@ -52,13 +53,13 @@ public class ServiceListAdapter extends RecyclerView.Adapter<ServiceListAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView txtServiceName,txtServiceExPeriod;
+        TextView txtServiceName,txtServicePrice;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             txtServiceName = (TextView)itemView.findViewById(R.id.txtServiceName);
-            txtServiceExPeriod = (TextView)itemView.findViewById(R.id.txtServiceExPeriod);
+            txtServicePrice = (TextView)itemView.findViewById(R.id.txtServicePrice);
         }
     }
 }

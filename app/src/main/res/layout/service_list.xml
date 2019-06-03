@@ -49,10 +49,10 @@
                 android:layout_height="match_parent"
                 android:textSize="18dp"
                 android:textStyle="bold"
-                android:text="Expiry Period" />
+                android:text="Service Price" />
 
             <TextView
-                android:id="@+id/txtServiceExPeriod"
+                android:id="@+id/txtServicePrice"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="5dp"

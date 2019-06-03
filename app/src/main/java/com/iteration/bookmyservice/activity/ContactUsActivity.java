@@ -52,11 +52,54 @@ public class ContactUsActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        final GetProductDataService productDataService = RetrofitInstance.getRetrofitInstance().create(GetProductDataService.class);
+
         txtCName = (EditText)findViewById(R.id.txtCName);
         txtCEmail = (EditText)findViewById(R.id.txtCEmail);
         txtCPhone = (EditText)findViewById(R.id.txtCPhone);
         txtCComment = (EditText)findViewById(R.id.txtCComment);
         btnCSubmit = (Button)findViewById(R.id.btnCSubmit);
+
+        btnCSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String i_name = txtCName.getText().toString();
+                String i_email = txtCEmail.getText().toString();
+                String i_phone = txtCPhone.getText().toString();
+                String i_comment = txtCComment.getText().toString();
+
+                final ProgressDialog dialog = new ProgressDialog(ContactUsActivity.this);
+                dialog.setMessage("Loading...");
+                dialog.setCancelable(true);
+                dialog.show();
+
+                Call<Message> AddInquiryCall = productDataService.getInquiryData(i_name,i_email,i_phone,i_comment);
+                AddInquiryCall.enqueue(new Callback<Message>() {
+                    @Override
+                    public void onResponse(Call<Message> call, Response<Message> response) {
+                        dialog.dismiss();
+                        String status = response.body().getStatus();
+                        String message = response.body().getMessage();
+                        if (status.equals("1"))
+                        {
+                            Intent i = new Intent(ContactUsActivity.this,HomeActivity.class);
+                            startActivity(i);
+                        }
+                        else
+                        {
+                            Toast.makeText(ContactUsActivity.this, message, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Message> call, Throwable t) {
+                        Toast.makeText(ContactUsActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }
+        });
 
     }
 

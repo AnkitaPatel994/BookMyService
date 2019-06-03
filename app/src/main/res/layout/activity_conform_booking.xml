@@ -277,9 +277,28 @@
                     android:padding="10dp"
                     android:layout_weight="1"
                     android:hint="Enter Price"
+                    android:inputType="number"
                     android:background="@drawable/textbox"/>
 
             </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Comment :"
+                android:textStyle="bold|normal"
+                android:layout_marginTop="10dp"
+                android:textSize="18dp"/>
+
+            <EditText
+                android:id="@+id/txtConComment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:padding="10dp"
+                android:layout_weight="1"
+                android:hint="Enter Comment"
+                android:background="@drawable/textbox"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

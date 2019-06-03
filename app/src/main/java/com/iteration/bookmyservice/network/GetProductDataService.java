@@ -79,7 +79,15 @@ public interface GetProductDataService {
     @POST("webservice/conform_booking.php")
     Call<Message> getConformBookingData(@Field("booking_id") String booking_id,
                                         @Field("booking_status") String booking_status,
-                                        @Field("booking_price") String booking_price);
+                                        @Field("booking_price") String booking_price,
+                                        @Field("booking_admin_comment") String booking_admin_comment);
+
+    @FormUrlEncoded
+    @POST("webservice/addinquiry.php")
+    Call<Message> getInquiryData(@Field("i_name") String i_name,
+                                 @Field("i_email") String i_email,
+                                 @Field("i_phone") String i_phone,
+                                 @Field("i_comment") String i_comment);
 
 
 }

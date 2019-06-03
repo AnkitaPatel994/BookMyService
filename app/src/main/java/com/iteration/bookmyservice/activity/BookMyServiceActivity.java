@@ -323,7 +323,7 @@ public class BookMyServiceActivity extends AppCompatActivity
                         }
                     }
                 }, mYear, mMonth, mDay);
-                //mDatePicker.getDatePicker().setMinDate(c.getTimeInMillis());
+                mDatePicker.getDatePicker().setMinDate(c.getTimeInMillis());
                 mDatePicker.show();
             }
         });
