@@ -13,10 +13,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".activity.TermsConditionsActivity"
+            android:label="@string/title_activity_terms_conditions"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".activity.AdminBookingActivity"
             android:label="@string/title_activity_admin_booking"
-            android:theme="@style/AppTheme.ActionBar"/>
-
+            android:theme="@style/AppTheme.ActionBar" />
         <activity android:name=".activity.ConformBookingActivity" />
         <activity
             android:name=".activity.AdminLoginActivity"

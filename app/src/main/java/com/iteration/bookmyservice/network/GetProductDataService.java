@@ -22,12 +22,9 @@ public interface GetProductDataService {
     @GET("webservice/service.php")
     Call<ServiceList> getServiceData();
 
-    @GET("webservice/timeslot.php")
-    Call<TimeslotList> getTimeslotData();
-
     @FormUrlEncoded
-    @POST("webservice/booking_timeslot.php")
-    Call<TimeslotList> getBookingTimeslotData(@Field("booking_date") String booking_date,
+    @POST("webservice/timeslot.php")
+    Call<TimeslotList> getTimeslotData(@Field("booking_date") String booking_date,
                                               @Field("booking_service_opt") String booking_service_opt);
 
     @FormUrlEncoded
@@ -53,6 +50,23 @@ public interface GetProductDataService {
                                     @Field("booking_t_id") String booking_t_id,
                                     @Field("booking_status") String booking_status,
                                     @Field("booking_time") String booking_time);
+
+    @FormUrlEncoded
+    @POST("webservice/bookingemailsend.php")
+    Call<Message> getBookingEmailSendData(@Field("booking_email") String booking_email,
+                                          @Field("booking_name") String booking_name,
+                                          @Field("booking_phone") String booking_phone,
+                                          @Field("booking_address") String booking_address,
+                                          @Field("booking_service_name") String booking_service_name,
+                                          @Field("booking_date") String booking_date,
+                                          @Field("booking_vinno") String booking_vinno,
+                                          @Field("booking_make") String booking_make,
+                                          @Field("booking_model") String booking_model,
+                                          @Field("booking_msgyear") String booking_msgyear,
+                                          @Field("booking_enginetype") String booking_enginetype,
+                                          @Field("booking_vanplateno") String booking_vanplateno,
+                                          @Field("booking_comment") String booking_comment,
+                                          @Field("booking_t_name") String booking_t_name);
 
     @FormUrlEncoded
     @POST("webservice/login.php")

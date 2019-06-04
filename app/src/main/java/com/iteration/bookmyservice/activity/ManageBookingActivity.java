@@ -18,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.iteration.bookmyservice.R;
@@ -46,6 +47,7 @@ public class ManageBookingActivity extends AppCompatActivity
     RecyclerView rvManageBooking;
     ArrayList<Booking> BookingListArray = new ArrayList<>();
     int flag = 0;
+    Button btnSB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +72,16 @@ public class ManageBookingActivity extends AppCompatActivity
         String user_email = user.get(SessionManager.user_email);
 
         GetProductDataService productDataService = RetrofitInstance.getRetrofitInstance().create(GetProductDataService.class);
+
+        btnSB = (Button) findViewById(R.id.btnSB);
+        btnSB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ManageBookingActivity.this,BookMyServiceActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
 
         rvManageBooking = (RecyclerView)findViewById(R.id.rvManageBooking);
         rvManageBooking.setHasFixedSize(true);
@@ -160,6 +172,11 @@ public class ManageBookingActivity extends AppCompatActivity
         else if (id == R.id.nav_admin)
         {
             Intent i = new Intent(getApplicationContext(),AdminLoginActivity.class);
+            startActivity(i);
+        }
+        else if (id == R.id.nav_tc)
+        {
+            Intent i = new Intent(getApplicationContext(),TermsConditionsActivity.class);
             startActivity(i);
         }
         else if (id == R.id.nav_rate)

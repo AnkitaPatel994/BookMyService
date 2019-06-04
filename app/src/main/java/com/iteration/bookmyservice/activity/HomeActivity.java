@@ -279,6 +279,11 @@ public class HomeActivity extends AppCompatActivity
             Intent i = new Intent(getApplicationContext(),AdminLoginActivity.class);
             startActivity(i);
         }
+        else if (id == R.id.nav_tc)
+        {
+            Intent i = new Intent(getApplicationContext(),TermsConditionsActivity.class);
+            startActivity(i);
+        }
         else if (id == R.id.nav_rate)
         {
             Intent i=new Intent(Intent.ACTION_VIEW);

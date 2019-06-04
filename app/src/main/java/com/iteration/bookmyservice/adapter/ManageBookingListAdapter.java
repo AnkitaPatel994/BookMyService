@@ -60,9 +60,6 @@ public class ManageBookingListAdapter extends RecyclerView.Adapter<ManageBooking
     ArrayList<Timeslot> TimeslotDListArray = new ArrayList<>();
     ArrayList<String> TimeslotDIdArray = new ArrayList<>();
     ArrayList<String> TimeslotDArray = new ArrayList<>();
-    ArrayList<Timeslot> BookingTimeslotDListArray = new ArrayList<>();
-    ArrayList<String> BookingTimeslotDIdArray = new ArrayList<>();
-    ArrayList<String> BookingTimeslotDArray = new ArrayList<>();
     ArrayList<String> positions = new ArrayList<String>();
     String TimeSlotId;
     String BookinglistString="";
@@ -105,16 +102,15 @@ public class ManageBookingListAdapter extends RecyclerView.Adapter<ManageBooking
         String t_timeslot = bookingListArray.get(position).getT_timeslot();
         String Booking_time = bookingListArray.get(position).getBooking_time();
 
-        Date oldDate = new Date();
-        Date Date = new Date();
-        Date newDate = new Date(oldDate.getTime() + TimeUnit.HOURS.toMillis(24)); // Adds 2 hours
-
-        Log.d("Date",Date+"=="+oldDate+"=="+newDate);
-
-        if (Date.equals(newDate))
+        if (Booking_time.equals("no"))
         {
             viewHolder.llEdit.setVisibility(View.GONE);
             viewHolder.llDelete.setVisibility(View.GONE);
+        }
+        else if (Booking_time.equals("yes"))
+        {
+            viewHolder.llEdit.setVisibility(View.VISIBLE);
+            viewHolder.llDelete.setVisibility(View.VISIBLE);
         }
 
         viewHolder.txtMBName.setText(booking_name);
@@ -326,7 +322,7 @@ public class ManageBookingListAdapter extends RecyclerView.Adapter<ManageBooking
                     }
                 });*/
 
-                Call<TimeslotList> BookingTimeslotListCall = productDataService.getBookingTimeslotData(booking_date,booking_service_opt);
+                /*Call<TimeslotList> BookingTimeslotListCall = productDataService.getBookingTimeslotData(booking_date,booking_service_opt);
                 BookingTimeslotListCall.enqueue(new Callback<TimeslotList>() {
                     @Override
                     public void onResponse(Call<TimeslotList> call, Response<TimeslotList> response) {
@@ -342,7 +338,8 @@ public class ManageBookingListAdapter extends RecyclerView.Adapter<ManageBooking
                                 String b_timeslot = BookingTimeslotDListArray.get(i).getT_timeslot();
                                 BookingTimeslotDArray.add(b_timeslot);
                             }
-
+                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, BookingTimeslotDArray);
+                            spDTimeSlot.setAdapter(adapter);
                         }
                         else
                         {
@@ -354,9 +351,9 @@ public class ManageBookingListAdapter extends RecyclerView.Adapter<ManageBooking
                     public void onFailure(Call<TimeslotList> call, Throwable t) {
                         Toast.makeText(context, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
                     }
-                });
+                });*/
 
-                Call<TimeslotList> TimeslotListCall = productDataService.getTimeslotData();
+                Call<TimeslotList> TimeslotListCall = productDataService.getTimeslotData(booking_date,booking_service_opt);
                 TimeslotListCall.enqueue(new Callback<TimeslotList>() {
                     @Override
                     public void onResponse(Call<TimeslotList> call, Response<TimeslotList> response) {
@@ -375,7 +372,6 @@ public class ManageBookingListAdapter extends RecyclerView.Adapter<ManageBooking
 
                             ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, TimeslotDArray);
                             spDTimeSlot.setAdapter(adapter);
-                            spDTimeSlot.setSelection(booking_t_id-1);
 
                         }
                         else

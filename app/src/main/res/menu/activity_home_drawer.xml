@@ -39,6 +39,11 @@
     </group>
 
     <group android:id="@+id/ABC">
+
+        <item
+            android:id="@+id/nav_tc"
+            android:icon="@drawable/ic_tc"
+            android:title="Terms &amp; Conditions" />
         <item
             android:id="@+id/nav_rate"
             android:icon="@drawable/ic_rate"
