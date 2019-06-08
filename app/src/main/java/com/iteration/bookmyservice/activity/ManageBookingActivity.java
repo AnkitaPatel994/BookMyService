@@ -130,6 +130,8 @@ public class ManageBookingActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+        Intent i = new Intent(ManageBookingActivity.this,HomeActivity.class);
+        startActivity(i);
         finish();
     }
 
@@ -169,11 +171,11 @@ public class ManageBookingActivity extends AppCompatActivity
             Intent i = new Intent(getApplicationContext(),FAQActivity.class);
             startActivity(i);
         }
-        else if (id == R.id.nav_admin)
+        /*else if (id == R.id.nav_admin)
         {
             Intent i = new Intent(getApplicationContext(),AdminLoginActivity.class);
             startActivity(i);
-        }
+        }*/
         else if (id == R.id.nav_tc)
         {
             Intent i = new Intent(getApplicationContext(),TermsConditionsActivity.class);

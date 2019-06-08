@@ -10,11 +10,63 @@
     android:orientation="vertical"
     tools:showIn="@layout/app_bar_about_us">
 
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:padding="10dp"
-        android:text="@string/aboutus" />
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:layout_marginTop="10dp"
+                android:text="Welcome to our on site Lube/ Tire change and other services" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:layout_marginTop="10dp"
+                android:text="At Saskatoon Motor Products, our highly qualified, Certified technicians and Service Advisors are here to provide exceptional service in a timely manner. From oil changes to transmission fluid flush we are dedicated to maintaining top tier customer service, for both new and pre-owned car buyers! We service all makes and models!" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:layout_marginTop="10dp"
+                android:text="Certified Service Express - No Appointment Needed" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:layout_marginTop="10dp"
+                android:text="Don't forget, now at BML we offer app booking for oil/tire changes with Certified Service Express! No appointment needed, Certified Technicians, convenient hours (open All days from 9AM-9PM), and we will work to get it done in 30 min. or less! Please note : to-from times will vary. \n \nExcellent Service at Competitive Prices with member discount for all Makes and Models!" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:layout_marginTop="10dp"
+                android:text="Schedule Your Service Appointment" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:layout_marginTop="10dp"
+                android:text="What Happens After I Schedule an Appointment? \nPlease use our App to schedule your next service appointment. We are standing by to answer your questions and reach you as quickly as possible. Upon submitting your information we will: \n \nRespond to you promptly via your preferred contact method. \n \nAsk any additional questions required to service your vehicle. \n \nConfirm your appointment." />
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

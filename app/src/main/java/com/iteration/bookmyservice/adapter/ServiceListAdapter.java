@@ -41,7 +41,7 @@ public class ServiceListAdapter extends RecyclerView.Adapter<ServiceListAdapter.
         String Service_ex_period = serviceListArray.get(position).getService_ex_period();
 
         viewHolder.txtServiceName.setText(Service_name);
-        viewHolder.txtServicePrice.setText("$ "+Service_price);
+        viewHolder.txtServicePrice.setText("Starts from $ "+Service_price);
 
 
     }

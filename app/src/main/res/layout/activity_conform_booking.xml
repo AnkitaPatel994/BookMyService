@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-
     tools:context=".activity.ConformBookingActivity">
 
     <ScrollView
@@ -177,7 +176,7 @@
 
             </LinearLayout>
 
-            <LinearLayout
+            <!--<LinearLayout
                 android:id="@+id/llBookingVINno"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -197,6 +196,129 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Booking VIN Number"
+                    android:paddingLeft="10dp"
+                    android:layout_weight="1"
+                    android:textSize="18dp"/>
+
+            </LinearLayout>-->
+
+            <LinearLayout
+                android:id="@+id/llBookingMake"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Make :"
+                    android:textStyle="bold|normal"
+                    android:layout_weight="1.9"
+                    android:textSize="18dp"/>
+
+                <TextView
+                    android:id="@+id/txtCBookingMake"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:layout_weight="1"
+                    android:textSize="18dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llBookingModel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Model :"
+                    android:textStyle="bold|normal"
+                    android:layout_weight="1.9"
+                    android:textSize="18dp"/>
+
+                <TextView
+                    android:id="@+id/txtCBookingModel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:layout_weight="1"
+                    android:textSize="18dp"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/llBookingMsgyear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Msg. Year :"
+                    android:textStyle="bold|normal"
+                    android:layout_weight="1.9"
+                    android:textSize="18dp"/>
+
+                <TextView
+                    android:id="@+id/txtCBookingMsgyear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:layout_weight="1"
+                    android:textSize="18dp"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/llBookingEnginetype"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Engine Type :"
+                    android:textStyle="bold|normal"
+                    android:layout_weight="1.9"
+                    android:textSize="18dp"/>
+
+                <TextView
+                    android:id="@+id/txtCBookingEnginetype"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:layout_weight="1"
+                    android:textSize="18dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llBookingVanplateno"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="VIN No / Van Plate No :"
+                    android:textStyle="bold|normal"
+                    android:layout_weight="1.9"
+                    android:textSize="18dp"/>
+
+                <TextView
+                    android:id="@+id/txtCBookingVanplateno"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
                     android:layout_weight="1"
                     android:textSize="18dp"/>

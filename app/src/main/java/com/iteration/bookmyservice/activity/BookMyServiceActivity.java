@@ -66,7 +66,7 @@ import retrofit2.Response;
 public class BookMyServiceActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    EditText txtName,txtEmail,txtOTP,txtMobile,txtAddress,txtVINNumber,txtMake,txtModel,txtMsgYear,txtEngineType,txtVanPlateNo,txtComment;
+    EditText txtName,txtEmail,txtOTP,txtMobile,txtAddress,txtMake,txtModel,txtMsgYear,txtEngineType,txtVanPlateNo,txtComment;
     Button btnEmailSend,btnEmailVeri,btnSubmit;
     LinearLayout llOTPBox,llBox;
     RadioGroup rgServiceOpt;
@@ -130,7 +130,7 @@ public class BookMyServiceActivity extends AppCompatActivity
 
         txtMobile = (EditText)findViewById(R.id.txtMobile);
         txtAddress = (EditText)findViewById(R.id.txtAddress);
-        txtVINNumber = (EditText)findViewById(R.id.txtVINNumber);
+        //txtVINNumber = (EditText)findViewById(R.id.txtVINNumber);
         txtMake = (EditText)findViewById(R.id.txtMake);
         txtModel = (EditText)findViewById(R.id.txtModel);
         txtMsgYear = (EditText)findViewById(R.id.txtMsgYear);
@@ -250,7 +250,7 @@ public class BookMyServiceActivity extends AppCompatActivity
                         service_opt = "Your Place";
                         break;
                     case R.id.rbOurPlace:
-                        txtAddress.setText("fgdh");
+                        txtAddress.setText("3903, Millar Avenue, Unit No 10(backside) Saskatoon");
                         txtAddress.setEnabled(false);
                         service_opt = "Our Place";
                         break;
@@ -261,6 +261,35 @@ public class BookMyServiceActivity extends AppCompatActivity
         LinearLayout llService = (LinearLayout)findViewById(R.id.llService);
         txtService = (TextView)findViewById(R.id.txtService);
         spTimeSlot = (Spinner)findViewById(R.id.spTimeSlot);
+
+        Call<ServiceList> ServiceListCall = productDataService.getServiceData();
+        ServiceListCall.enqueue(new Callback<ServiceList>() {
+            @Override
+            public void onResponse(Call<ServiceList> call, Response<ServiceList> response) {
+                String status = response.body().getStatus();
+                String message = response.body().getMessage();
+                if(status.equals("1"))
+                {
+                    ServiceListArray = response.body().getServiceList();
+                    for (int i=0;i<ServiceListArray.size();i++)
+                    {
+                        String sn = ServiceListArray.get(0).getService_name();
+                        txtService.setText(sn);
+                    }
+                }
+                else
+                {
+                    Toast.makeText(BookMyServiceActivity.this, message, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ServiceList> call, Throwable t) {
+                Toast.makeText(BookMyServiceActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
 
         llService.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -289,7 +318,10 @@ public class BookMyServiceActivity extends AppCompatActivity
                 RecyclerView.LayoutManager manager = new LinearLayoutManager(BookMyServiceActivity.this,LinearLayoutManager.VERTICAL,false);
                 rvDServiceList.setLayoutManager(manager);
 
-                Call<ServiceList> ServiceListCall = productDataService.getServiceData();
+                ServiceMultiListAdapter serviceMultiListAdapter = new ServiceMultiListAdapter(BookMyServiceActivity.this, ServiceListArray);
+                rvDServiceList.setAdapter(serviceMultiListAdapter);
+
+                /*Call<ServiceList> ServiceListCall = productDataService.getServiceData();
                 ServiceListCall.enqueue(new Callback<ServiceList>() {
                     @Override
                     public void onResponse(Call<ServiceList> call, Response<ServiceList> response) {
@@ -312,7 +344,7 @@ public class BookMyServiceActivity extends AppCompatActivity
                     public void onFailure(Call<ServiceList> call, Throwable t) {
                         Toast.makeText(BookMyServiceActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
                     }
-                });
+                });*/
                 positions.clear();
                 btnDDone.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -415,7 +447,7 @@ public class BookMyServiceActivity extends AppCompatActivity
                     final String booking_address = txtAddress.getText().toString();
                     final String booking_service_name = BookinglistString;
                     final String booking_date = txtDate.getText().toString();
-                    final String booking_vinno = txtVINNumber.getText().toString();
+                    //final String booking_vinno = txtVINNumber.getText().toString();
                     final String booking_make = txtMake.getText().toString();
                     final String booking_model = txtModel.getText().toString();
                     final String booking_msgyear = txtMsgYear.getText().toString();
@@ -436,7 +468,7 @@ public class BookMyServiceActivity extends AppCompatActivity
                     dialog.setCancelable(true);
                     dialog.show();
 
-                    Call<Message> AddBookingCall = productDataService.getAddBookingData(booking_name,booking_email,booking_phone,booking_service_opt,booking_address,booking_service_name,booking_date,booking_vinno,booking_make,booking_model,booking_msgyear,booking_enginetype,booking_vanplateno,booking_comment,booking_t_id,booking_status,booking_time);
+                    Call<Message> AddBookingCall = productDataService.getAddBookingData(booking_name,booking_email,booking_phone,booking_service_opt,booking_address,booking_service_name,booking_date,booking_make,booking_model,booking_msgyear,booking_enginetype,booking_vanplateno,booking_comment,booking_t_id,booking_status,booking_time);
                     AddBookingCall.enqueue(new Callback<Message>() {
                         @Override
                         public void onResponse(Call<Message> call, Response<Message> response) {
@@ -445,7 +477,7 @@ public class BookMyServiceActivity extends AppCompatActivity
                             String message = response.body().getMessage();
                             if (status.equals("1"))
                             {
-                                Call<Message> BookingEmailSendCall = productDataService.getBookingEmailSendData(booking_email,booking_name,booking_phone,booking_address,booking_service_name,booking_date,booking_vinno,booking_make,booking_model,booking_msgyear,booking_enginetype,booking_vanplateno,booking_comment,booking_t_name);
+                                Call<Message> BookingEmailSendCall = productDataService.getBookingEmailSendData(booking_email,booking_name,booking_phone,booking_address,booking_service_name,booking_date,booking_make,booking_model,booking_msgyear,booking_enginetype,booking_vanplateno,booking_comment,booking_t_name);
                                 BookingEmailSendCall.enqueue(new Callback<Message>() {
                                     @Override
                                     public void onResponse(Call<Message> call, Response<Message> response) {
@@ -500,7 +532,8 @@ public class BookMyServiceActivity extends AppCompatActivity
                         TimeslotArray.add(timeslot);
                     }
 
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, TimeslotArray);
+                    //ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, TimeslotArray);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, TimeslotArray);
                     spTimeSlot.setAdapter(adapter);
                 }
                 else
@@ -562,11 +595,11 @@ public class BookMyServiceActivity extends AppCompatActivity
             Intent i = new Intent(getApplicationContext(),FAQActivity.class);
             startActivity(i);
         }
-        else if (id == R.id.nav_admin)
+        /*else if (id == R.id.nav_admin)
         {
             Intent i = new Intent(getApplicationContext(),AdminLoginActivity.class);
             startActivity(i);
-        }
+        }*/
         else if (id == R.id.nav_tc)
         {
             Intent i = new Intent(getApplicationContext(),TermsConditionsActivity.class);
@@ -638,6 +671,12 @@ public class BookMyServiceActivity extends AppCompatActivity
             final String Service_name = serviceListArray.get(position).getService_name();
 
             viewHolder.txtSMlName.setText(Service_name);
+
+            if (position == 0)
+            {
+                viewHolder.chMService.setChecked(true);
+                positions.add(Service_name);
+            }
 
             viewHolder.chMService.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override

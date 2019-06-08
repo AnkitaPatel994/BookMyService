@@ -91,7 +91,7 @@ public class ManageBookingListAdapter extends RecyclerView.Adapter<ManageBooking
         String booking_address = bookingListArray.get(position).getBooking_address();
         final String booking_service_name = bookingListArray.get(position).getBooking_service_name();
         final String booking_date = bookingListArray.get(position).getBooking_date();
-        String booking_vinno = bookingListArray.get(position).getBooking_vinno();
+        //String booking_vinno = bookingListArray.get(position).getBooking_vinno();
         final String booking_make = bookingListArray.get(position).getBooking_make();
         final String booking_model = bookingListArray.get(position).getBooking_model();
         final String booking_msgyear = bookingListArray.get(position).getBooking_msgyear();

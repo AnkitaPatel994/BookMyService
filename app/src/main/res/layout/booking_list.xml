@@ -169,7 +169,7 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <!--<LinearLayout
         android:id="@+id/llBookingVINno"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -193,7 +193,7 @@
             android:layout_weight="1"
             android:textSize="18dp" />
 
-    </LinearLayout>
+    </LinearLayout>-->
 
     <LinearLayout
         android:id="@+id/llBookingTimeSlot"

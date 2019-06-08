@@ -85,11 +85,11 @@ public class FAQActivity extends AppCompatActivity
             Intent i = new Intent(getApplicationContext(),ContactUsActivity.class);
             startActivity(i);
         }
-        else if (id == R.id.nav_admin)
+        /*else if (id == R.id.nav_admin)
         {
             Intent i = new Intent(getApplicationContext(),AdminLoginActivity.class);
             startActivity(i);
-        }
+        }*/
         else if (id == R.id.nav_tc)
         {
             Intent i = new Intent(getApplicationContext(),TermsConditionsActivity.class);

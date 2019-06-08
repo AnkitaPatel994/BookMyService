@@ -20,8 +20,6 @@ public class Booking {
     private String booking_service_name;
     @SerializedName("booking_date")
     private String booking_date;
-    @SerializedName("booking_vinno")
-    private String booking_vinno;
     @SerializedName("booking_make")
     private String booking_make;
     @SerializedName("booking_model")
@@ -103,14 +101,6 @@ public class Booking {
 
     public void setBooking_date(String booking_date) {
         this.booking_date = booking_date;
-    }
-
-    public String getBooking_vinno() {
-        return booking_vinno;
-    }
-
-    public void setBooking_vinno(String booking_vinno) {
-        this.booking_vinno = booking_vinno;
     }
 
     public String getBooking_make() {

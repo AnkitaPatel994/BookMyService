@@ -22,7 +22,7 @@ import retrofit2.Response;
 
 public class ConformBookingActivity extends AppCompatActivity {
 
-    TextView txtCBookingName,txtCBookingEmail,txtCBookingPhoneNo,txtCBookingAddress,txtCServiceName,txtCBookingDate,txtCBookingVINno,txtCComment,txtCTimeSlott;
+    TextView txtCBookingName,txtCBookingVanplateno,txtCBookingEnginetype,txtCBookingMsgyear,txtCBookingModel,txtCBookingMake,txtCBookingEmail,txtCBookingPhoneNo,txtCBookingAddress,txtCServiceName,txtCBookingDate,txtCBookingVINno,txtCComment,txtCTimeSlott;
     Button btnDone,btnCancel;
     EditText txtPrice,txtConComment;
 
@@ -42,7 +42,11 @@ public class ConformBookingActivity extends AppCompatActivity {
         txtCBookingAddress = (TextView)findViewById(R.id.txtCBookingAddress);
         txtCServiceName = (TextView)findViewById(R.id.txtCServiceName);
         txtCBookingDate = (TextView)findViewById(R.id.txtCBookingDate);
-        txtCBookingVINno = (TextView)findViewById(R.id.txtCBookingVINno);
+        txtCBookingMake = (TextView)findViewById(R.id.txtCBookingMake);
+        txtCBookingModel = (TextView)findViewById(R.id.txtCBookingModel);
+        txtCBookingMsgyear = (TextView)findViewById(R.id.txtCBookingMsgyear);
+        txtCBookingEnginetype = (TextView)findViewById(R.id.txtCBookingEnginetype);
+        txtCBookingVanplateno = (TextView)findViewById(R.id.txtCBookingVanplateno);
         txtCComment = (TextView)findViewById(R.id.txtCComment);
         txtCTimeSlott = (TextView)findViewById(R.id.txtCTimeSlott);
         txtPrice = (EditText) findViewById(R.id.txtPrice);
@@ -60,7 +64,7 @@ public class ConformBookingActivity extends AppCompatActivity {
         String booking_address = getIntent().getExtras().getString("booking_address");
         String Service_name = getIntent().getExtras().getString("Service_name");
         String booking_date = getIntent().getExtras().getString("booking_date");
-        String booking_vinno = getIntent().getExtras().getString("booking_vinno");
+        //String booking_vinno = getIntent().getExtras().getString("booking_vinno");
         String booking_make = getIntent().getExtras().getString("booking_make");
         String booking_model = getIntent().getExtras().getString("booking_model");
         String booking_msgyear = getIntent().getExtras().getString("booking_msgyear");
@@ -75,7 +79,11 @@ public class ConformBookingActivity extends AppCompatActivity {
         txtCBookingAddress.setText(booking_address);
         txtCServiceName.setText(Service_name);
         txtCBookingDate.setText(booking_date);
-        txtCBookingVINno.setText(booking_vinno);
+        txtCBookingMake.setText(booking_make);
+        txtCBookingModel.setText(booking_model);
+        txtCBookingMsgyear.setText(booking_msgyear);
+        txtCBookingEnginetype.setText(booking_enginetype);
+        txtCBookingVanplateno.setText(booking_vanplateno);
         txtCComment.setText(booking_comment);
         txtCTimeSlott.setText(t_timeslot);
 

@@ -32,10 +32,10 @@
             android:id="@+id/nav_faq"
             android:icon="@drawable/faq"
             android:title="FAQ" />
-        <item
+        <!--<item
             android:id="@+id/nav_admin"
             android:icon="@drawable/ic_account"
-            android:title="Admin Login" />
+            android:title="Admin Login" />-->
     </group>
 
     <group android:id="@+id/ABC">

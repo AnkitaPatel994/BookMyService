@@ -103,7 +103,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="gone">
+                >
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -365,7 +365,7 @@
                         android:hint="Enter Address"
                         android:background="@drawable/textbox"/>
 
-                    <TextView
+                    <!--<TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
@@ -380,7 +380,7 @@
                         android:layout_marginTop="3dp"
                         android:padding="10dp"
                         android:hint="Enter VIN Number"
-                        android:background="@drawable/textbox"/>
+                        android:background="@drawable/textbox"/>-->
 
                     <TextView
                         android:layout_width="match_parent"
@@ -455,7 +455,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="5dp"
-                        android:text="Van No / Plate No" />
+                        android:text="VIN No / Plate No" />
 
                     <EditText
                         android:id="@+id/txtVanPlateNo"
@@ -463,7 +463,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
                         android:padding="10dp"
-                        android:hint="Enter Van No / Plate No"
+                        android:hint="Enter VIN No / Plate No"
                         android:background="@drawable/textbox"/>
 
                     <TextView
