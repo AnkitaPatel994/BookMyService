@@ -7,6 +7,7 @@ import com.iteration.bookmyservice.model.MessageOTP;
 import com.iteration.bookmyservice.model.ServiceList;
 import com.iteration.bookmyservice.model.SliderList;
 import com.iteration.bookmyservice.model.TimeslotList;
+import com.iteration.bookmyservice.model.TokenUpdateResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -25,7 +26,7 @@ public interface GetProductDataService {
     @FormUrlEncoded
     @POST("webservice/timeslot.php")
     Call<TimeslotList> getTimeslotData(@Field("booking_date") String booking_date,
-                                              @Field("booking_service_opt") String booking_service_opt);
+                                       @Field("booking_service_opt") String booking_service_opt);
 
     @FormUrlEncoded
     @POST("webservice/emailsendotp.php")
@@ -104,6 +105,19 @@ public interface GetProductDataService {
                                  @Field("i_email") String i_email,
                                  @Field("i_phone") String i_phone,
                                  @Field("i_comment") String i_comment);
+
+    @FormUrlEncoded
+    @POST("webservice/FCM/token.php")
+    Call<TokenUpdateResponse> getUpdateToken(@Field("device_type") String d_type,
+                                          @Field("wifi_mac") String wifi_mac,
+                                          @Field("device_token") String token);
+
+    @FormUrlEncoded
+    @POST("webservice/FCM/token.php")
+    Call<TokenUpdateResponse> getUpdateToken_email(@Field("device_type") String d_type,
+                                                @Field("email") String email,
+                                                @Field("wifi_mac") String wifi_mac,
+                                                @Field("device_token") String token);
 
 
 }

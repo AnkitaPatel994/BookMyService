@@ -14,6 +14,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,6 +50,8 @@ import com.iteration.bookmyservice.model.Service;
 import com.iteration.bookmyservice.model.ServiceList;
 import com.iteration.bookmyservice.model.Timeslot;
 import com.iteration.bookmyservice.model.TimeslotList;
+import com.iteration.bookmyservice.model.TokenUpdateResponse;
+import com.iteration.bookmyservice.network.Config;
 import com.iteration.bookmyservice.network.GetProductDataService;
 import com.iteration.bookmyservice.network.RetrofitInstance;
 import com.iteration.bookmyservice.network.SessionManager;
@@ -91,6 +94,7 @@ public class BookMyServiceActivity extends AppCompatActivity
     TextView txtService;
     ArrayList<String> positions = new ArrayList<String>();
     String BookinglistString="";
+    private static final String TAGs = MainActivity.class.getSimpleName();
     GetProductDataService productDataService;
 
     @Override
@@ -194,6 +198,7 @@ public class BookMyServiceActivity extends AppCompatActivity
                         if (status.equals("1"))
                         {
                             OTP = response.body().getOtp();
+                            Log.d("OTP",""+OTP);
                             /*txtOTP.setText(OTP);*/
                             llOTPBox.setVisibility(View.VISIBLE);
                             btnEmailVeri.setVisibility(View.VISIBLE);
@@ -481,6 +486,7 @@ public class BookMyServiceActivity extends AppCompatActivity
                                 BookingEmailSendCall.enqueue(new Callback<Message>() {
                                     @Override
                                     public void onResponse(Call<Message> call, Response<Message> response) {
+                                        displayFirebaseRegId(booking_email);
                                         Intent i = new Intent(BookMyServiceActivity.this,HomeActivity.class);
                                         startActivity(i);
                                     }
@@ -512,6 +518,43 @@ public class BookMyServiceActivity extends AppCompatActivity
             }
         });
 
+    }
+
+    private void displayFirebaseRegId(String email) {
+        String regId = Config.getToken(BookMyServiceActivity.this);
+        if (!TextUtils.isEmpty(regId)) {
+            updateToken(regId,email);
+        } else {
+            Toast.makeText(BookMyServiceActivity.this, "Firebase Reg Id is not received yet!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void updateToken(String token, String email) {
+        String getWifiMac = Config.getWifiMacAddress();
+        Log.e(TAGs, "onResponse->" + getWifiMac + " - " + token);
+
+        Call<TokenUpdateResponse> call = productDataService.getUpdateToken_email("android", email, getWifiMac, token);
+        call.enqueue(new Callback<TokenUpdateResponse>() {
+            @Override
+            public void onResponse(Call<TokenUpdateResponse> call, Response<TokenUpdateResponse> response) {
+                Log.e(TAGs, "onResponse->" + response.body().getStatus());
+                if (response.isSuccessful() && response.body() != null) {
+                    if (response.body().getStatus().equalsIgnoreCase("true")) {
+                        Config.setUploadToken(BookMyServiceActivity.this, true);
+                    } else {
+                        Toast.makeText(BookMyServiceActivity.this, "Token Not Updated..!!", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(BookMyServiceActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TokenUpdateResponse> call, Throwable t) {
+                Log.e(TAGs, "onFailure-> " + t.toString());
+                Toast.makeText(BookMyServiceActivity.this, "Something Wrong!!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void AvailableTimeslot(String booking_date, String service_opt) {
